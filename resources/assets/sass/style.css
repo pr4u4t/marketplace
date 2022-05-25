@@ -1,0 +1,993 @@
+
+/* -- tree view -- */
+summary {
+  display: block;
+  cursor: pointer;
+  outline: 0; 
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree-nav .badge{
+  position:absolute;
+  right:-0.6em;
+  bottom:0.8em;
+}
+
+.tree-nav a{
+  color:#000;
+}
+
+.tree-nav summary{
+  position:relative;
+}
+
+.tree-nav__item {
+  display: block;
+  /*white-space: nowrap;*/
+  color: #000;
+  position: relative;
+}
+.tree-nav__item.is-expandable::before {
+  border-left: 1px dotted #333;
+  content: "";
+  height: 100%;
+  left: 0.8rem;
+  position: absolute;
+  top: 2.4rem;
+  height: calc(100% - 2.4rem);
+}
+.tree-nav__item .tree-nav__item {
+  margin-left: 2rem;
+}
+.tree-nav__item.is-expandable[open] > .tree-nav__item-title::before {
+  transform: rotate(0deg);
+}
+.tree-nav__item.is-expandable > .tree-nav__item-title {
+  padding-left: 2.4rem;
+}
+.tree-nav__item.is-expandable > .tree-nav__item-title::before {
+  position: absolute;
+  will-change: transform;
+  transition: transform 300ms ease;
+  font-family:'Font Awesome 5 Free';
+  color: #000;
+  font-size: 1.1rem;
+  content: "\f107";
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+  transform: rotate(-90deg);
+}
+
+.tree-nav__item-title {
+  cursor: pointer;
+  display: block;
+  outline: 0;
+  color: #000;
+  font-size: 1em;
+  line-height: 2.8rem;
+}
+.tree-nav__item-title .icon {
+  display: inline;
+  padding-left: 1.6rem;
+  margin-right: 0.8rem;
+  color: #666;
+  font-size: 1.4rem;
+  position: relative;
+}
+.tree-nav__item-title .icon::before {
+  top: 0;
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+}
+
+.tree-nav__item-title::-webkit-details-marker {
+  display: none;
+}
+
+nav.tree-nav details.tree-nav__item.is-expandable details.tree-nav__item.is-expandable summary.fa.tree-nav__item-title::after {
+  content: ' ';
+  white-space: pre;
+  position: absolute;
+  left: -0.6em;
+  width: 0.8em;
+  border-top: 1px dotted #000;
+  top: 1.2em;
+}
+
+/* -- carousel --*/
+
+/* -------------------------------------------------------- reset */
+.home .slider h1{
+  font-size: 6vw;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.home .slider a{
+  color: inherit;
+  text-decoration: none;
+  outline: 0;
+}
+.home .slider ul,
+.home .slider li{
+  list-style: none;
+}
+.home .slider label{
+  cursor: pointer;
+}
+.home .slider input{
+  display: none;
+}
+/* -------------------------------------------------------- codepen */
+/* -------------------------------------------------------- slider */
+
+.home .slider{
+  height:50vw;
+  min-height:370px;
+}
+
+@media (max-width: 575.99px){
+  .home .slider ul li img {
+    height:100%;
+  }
+  
+  .home .slider > .slide-description{
+    top: calc(12.5% - 2.75vw);
+  }
+}
+
+@media (min-width:576px){
+  .home .slider{
+    height: 60vw;
+  }
+}
+
+@media (min-width:768px){
+  .home .slider{
+    height: 50vw;
+  }
+}
+
+@media (min-width:992px){
+  .home .slider{  
+    height:35vw;
+  }
+}
+
+@media (min-width:1200px){
+  .home .slider{  
+    height:25vw;
+  }
+}
+
+@media (min-width:1400px){
+  .home .slider{  
+    height:20vw;
+  }
+}
+
+@media (min-width:1600px){
+  .home .slider{  
+    height:20vw;
+  }
+}
+/* -------------------------------------------------------- slide */
+.home .slider > ul {
+  height: 100%;
+  z-index: 100;
+}
+.home .slider > ul > li{
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  
+  opacity: 0;
+  z-index: 1;	
+  -webkit-transition: all 2000ms ease;
+  -moz-transition: all 2000ms ease;
+  -ms-transition: all 2000ms ease;
+  -o-transition: all 2000ms ease;
+  transition: all 2000ms ease;
+}
+.home .slider > #input-slide-0:checked ~ ul > li.slide-0,
+.home .slider > #input-slide-1:checked ~ ul > li.slide-1,
+.home .slider > #input-slide-2:checked ~ ul > li.slide-2,
+.home .slider > #input-slide-3:checked ~ ul > li.slide-3{
+  opacity: 1;
+  z-index: 2;
+}
+.home .slider > ul > li.slide-0{
+  background-color: #fff;
+}
+.home .slider > ul > li.slide-1{
+  background-color: #fff;
+}
+.home .slider > ul > li.slide-2{
+  background-color: #fff;
+}
+.home .slider > ul > li.slide-3{
+  background-color: #fff;
+}
+/* -------------------------------------------------------- arrow */
+.home .slider > .slider-arrow-prev,
+.home .slider > .slider-arrow-next {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 300;
+}
+.home .slider > .slider-arrow-prev > label,
+.home .slider > .slider-arrow-next > label {
+  position: absolute;
+  width: 5vw;
+  height: 5vw;
+  margin-top: -2.5vw;
+  opacity: 0;
+  background-size: 100% auto;
+  background-position: center;
+  
+  z-index: -1;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.home .slider > #input-slide-0:checked ~ .slider-arrow-prev > label.slide-3,
+.home .slider > #input-slide-0:checked ~ .slider-arrow-next > label.slide-1, 
+.home .slider > #input-slide-1:checked ~ .slider-arrow-prev > label.slide-0,
+.home .slider > #input-slide-1:checked ~ .slider-arrow-next > label.slide-2, 
+.home .slider > #input-slide-2:checked ~ .slider-arrow-prev > label.slide-1,
+.home .slider > #input-slide-2:checked ~ .slider-arrow-next > label.slide-3, 
+.home .slider > #input-slide-3:checked ~ .slider-arrow-prev > label.slide-2,
+.home .slider > #input-slide-3:checked ~ .slider-arrow-next > label.slide-0 {
+  z-index: 1;
+}
+.home .slider:hover > .slider-arrow-prev > label,
+.home .slider:hover > .slider-arrow-next > label{
+  opacity: 1;
+}
+.home .slider > .slider-arrow-prev > label {
+  left: 5vw;
+  /*background-image: url(/arrow-left.png);*/
+  content:'\f107';
+}
+.home .slider > .slider-arrow-next > label {
+  right: 5vw;
+  /*background-image: url(/arrow-right.png);*/
+  content:'\f108';
+}
+/* -------------------------------------------------------- dot */
+.home .slider > .slider-dot {
+  position: relative;
+  margin-top: -4vw;
+  text-align: center;
+  z-index: 300;
+  font-size: 0;
+}
+.home .slider > .slider-dot > label {
+  position: relative;
+  display: inline-block;
+  margin: 1vw 0.5vw;
+  width: 1vw;
+  height: 1vw;
+  border-radius: 50%;
+  
+  background-color: #FFF;
+}
+.home .slider > #input-slide-0:checked ~ .slider-dot > label.slide-0,
+.home .slider > #input-slide-1:checked ~ .slider-dot > label.slide-1,
+.home .slider > #input-slide-2:checked ~ .slider-dot > label.slide-2,
+.home .slider > #input-slide-3:checked ~ .slider-dot > label.slide-3 {
+  background-color: #FD7FE3;
+}
+.home .slider > .slider-dot > label:hover{
+  background-color: #7E6DE0 !important;
+}
+/* -------------------------------------------------------- description */
+.home .slider > .slide-description{
+  position: absolute;
+  width: 90%;
+  top: calc(17.5% - 2.75vw);
+  left: 5%;
+  z-index: 200;
+}
+
+.home .slider ul  img { filter: brightness(50%); }
+
+.home .slider > .slide-description > label{
+  position: absolute;
+  width: 100%;
+  top: 0;	
+  left: 0;
+  cursor: default;
+  
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  -ms-transition: all 0.75s ease;
+  -o-transition: all 0.75s ease;
+  transition: all 0.75s ease;	
+}
+
+.home .slider > #input-slide-0:checked ~ .slide-description > .slide-0,
+.home .slider > #input-slide-1:checked ~ .slide-description > .slide-1,
+.home .slider > #input-slide-2:checked ~ .slide-description > .slide-2,
+.home .slider > #input-slide-3:checked ~ .slide-description > .slide-3{
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;	
+}
+
+.home .slider > .slide-description > label > .text-slide{
+  margin: 0 auto;
+  line-height: 6vw;
+  text-align: center;
+  color:#fff;
+}
+
+@media (max-width: 575.99px){
+  .home .slider > .slide-description{
+    top: calc(12.5% - 2.75vw);
+  }
+}
+
+/* -------------------------------------------------------- autoplay */
+/*
+ * if you don't want to autoplay 
+ * just check input "slide-0" 
+ * instead of input "play" in html code
+ * and remove the code below
+ */
+/* -------------------------------------------------------- autoplay slide */
+@-webkit-keyframes slide{
+  0%, 100% { opacity: 0; }
+  6%, 25% { opacity: 1; z-index: 2; }
+  30%, 50% { opacity: 0; z-index: 2; }
+}
+@-moz-keyframes slide{
+  0%, 100% { opacity: 0; }
+  6%, 24% { opacity: 1; z-index: 2; }
+  30%, 50% { opacity: 0; z-index: 2; }
+}
+@-ms-keyframes slide{
+  0%, 100% { opacity: 0; }
+  6%, 25% { opacity: 1; z-index: 2; }
+  30%, 50% { opacity: 0; z-index: 2; }
+}
+@-o-keyframes slide{
+  0%, 100% { opacity: 0; }
+  6%, 25% { opacity: 1; z-index: 2; }
+  30%, 50% { opacity: 0; z-index: 2; }
+}
+@keyframes slide{
+  0%, 100% { opacity: 0; }
+  6%, 25% { opacity: 1; z-index: 2; }
+  30%, 50% { opacity: 0; z-index: 2; }
+}
+.home .slider > #input-slide-autoplay:checked ~ ul > li.slide-0{
+  -webkit-animation: slide 32000ms infinite -2000ms linear;
+  -moz-animation: slide 32000ms infinite -2000ms linear;
+  -ms-animation: slide 32000ms infinite -2000ms linear;
+  -o-animation: slide 32000ms infinite -2000ms linear;
+  animation: slide 32000ms infinite -2000ms linear;
+}
+.home .slider > #input-slide-autoplay:checked ~ ul > li.slide-1{
+  -webkit-animation: slide 32000ms infinite 6000ms linear;
+  -moz-animation: slide 32000ms infinite 6000ms linear;
+  -ms-animation: slide 32000ms infinite 6000ms linear;
+  -o-animation: slide 32000ms infinite 6000ms linear;
+  animation: slide 32000ms infinite 6000ms linear;	
+}
+.home .slider > #input-slide-autoplay:checked ~ ul > li.slide-2{
+  -webkit-animation: slide 32000ms infinite 14000ms linear;
+  -moz-animation: slide 32000ms infinite 14000ms linear;
+  -ms-animation: slide 32000ms infinite 14000ms linear;
+  -o-animation: slide 32000ms infinite 14000ms linear;
+  animation: slide 32000ms infinite 14000ms linear;	
+}
+.home .slider > #input-slide-autoplay:checked ~ ul > li.slide-3{
+  -webkit-animation: slide 32000ms infinite 22000ms linear;
+  -moz-animation: slide 32000ms infinite 22000ms linear;
+  -ms-animation: slide 32000ms infinite 22000ms linear;
+  -o-animation: slide 32000ms infinite 22000ms linear;
+  animation: slide 32000ms infinite 22000ms linear;	
+}
+.home .slider > #input-slide-autoplay:checked ~ ul > li{
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;	
+}
+/* -------------------------------------------------------- autoplay arrow */
+@-webkit-keyframes arrow {
+  0%, 24% { z-index: 1; }
+  25%, 100% { z-index: -1; }
+}
+@-moz-keyframes arrow {
+  0%, 24% { z-index: 1; }
+  25%, 100% { z-index: -1; }
+}
+@-ms-keyframes arrow {
+  0%, 24% { z-index: 1; }
+  25%, 100% { z-index: -1; }
+}
+@-o-keyframes arrow {
+  0%, 24% { z-index: 1; }
+  25%, 100% { z-index: -1; }
+}
+@keyframes arrow {
+  0%, 24% { z-index: 1; }
+  25%, 100% { z-index: -1; }
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-3,
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-1{
+  -webkit-animation: arrow 32000ms infinite -2000ms;
+  -moz-animation: arrow 32000ms infinite -2000ms;
+  -ms-animation: arrow 32000ms infinite -2000ms;
+  -o-animation: arrow 32000ms infinite -2000ms;
+  animation: arrow 32000ms infinite -2000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-0,
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-2{
+  -webkit-animation: arrow 32000ms infinite 6000ms;
+  -moz-animation: arrow 32000ms infinite 6000ms;
+  -ms-animation: arrow 32000ms infinite 6000ms;
+  -o-animation: arrow 32000ms infinite 6000ms;
+  animation: arrow 32000ms infinite 6000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-1,
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-3{
+  -webkit-animation: arrow 32000ms infinite 14000ms;
+  -moz-animation: arrow 32000ms infinite 14000ms;
+  -ms-animation: arrow 32000ms infinite 14000ms;
+  -o-animation: arrow 32000ms infinite 14000ms;
+  animation: arrow 32000ms infinite 14000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-prev > label.slide-2,
+.home .slider > #input-slide-autoplay:checked ~ .slider-arrow-next > label.slide-0{
+  -webkit-animation: arrow 32000ms infinite 22000ms;
+  -moz-animation: arrow 32000ms infinite 22000ms;
+  -ms-animation: arrow 32000ms infinite 22000ms;
+  -o-animation: arrow 32000ms infinite 22000ms;
+  animation: arrow 32000ms infinite 22000ms;	
+}
+/* -------------------------------------------------------- autoplay dot */
+@-webkit-keyframes dot {
+  0%, 24%	{ background-color: #CCC; }
+  25%, 100% { background: #FFF; }
+}
+@-moz-keyframes dot {
+  0%, 24%	{ background-color: #CCC; }
+  25%, 100% { background: #FFF; }
+}
+@-ms-keyframes dot {
+  0%, 24%	{ background-color: #CCC; }
+  25%, 100% { background: #FFF; }
+}
+@-o-keyframes dot {
+  0%, 24%	{ background-color: #CCC; }
+  25%, 100% { background: #FFF; }
+}
+@keyframes dot {
+  0%, 24%	{ background-color: #CCC; }
+  25%, 100% { background: #FFF; }
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-0{
+  -webkit-animation: dot 32000ms infinite -2000ms;
+  -moz-animation: dot 32000ms infinite -2000ms;
+  -ms-animation: dot 32000ms infinite -2000ms;
+  -o-animation: dot 32000ms infinite -2000ms;
+  animation: dot 32000ms infinite -2000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-1{
+  -webkit-animation: dot 32000ms infinite 6000ms;
+  -moz-animation: dot 32000ms infinite 6000ms;
+  -ms-animation: dot 32000ms infinite 6000ms;
+  -o-animation: dot 32000ms infinite 6000ms;
+  animation: dot 32000ms infinite 6000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-2{
+  -webkit-animation: dot 32000ms infinite 14000ms;
+  -moz-animation: dot 32000ms infinite 14000ms;
+  -ms-animation: dot 32000ms infinite 14000ms;
+  -o-animation: dot 32000ms infinite 14000ms;
+  animation: dot 32000ms infinite 14000ms;	
+}
+.home .slider > #input-slide-autoplay:checked ~ .slider-dot > label.slide-3{
+  -webkit-animation: dot 32000ms infinite 22000ms;
+  -moz-animation: dot 32000ms infinite 22000ms;
+  -ms-animation: dot 32000ms infinite 22000ms;
+  -o-animation: dot 32000ms infinite 22000ms;
+  animation: dot 32000ms infinite 22000ms;	
+}
+/* -------------------------------------------------------- autoplay description */
+@-webkit-keyframes description{
+  0%, 5% { opacity: 0; z-index: 2; visibility: visible; }
+  6%, 24% { opacity: 1; z-index: 2; visibility: visible; }
+  25%, 100% { opacity: 0; z-index: 0; visibility: hidden; }
+}
+@-moz-keyframes description{
+  0%, 5% { opacity: 0; z-index: 2; visibility: visible; }
+  6%, 24% { opacity: 1; z-index: 2; visibility: visible; }
+  25%, 100% { opacity: 0; z-index: 0; visibility: hidden; }
+}
+@-ms-keyframes description{
+  0%, 5% { opacity: 0; z-index: 2; visibility: visible; }
+  6%, 24% { opacity: 1; z-index: 2; visibility: visible; }
+  25%, 100% { opacity: 0; z-index: 0; visibility: hidden; }
+}
+@-o-keyframes description{
+  0%, 5% { opacity: 0; z-index: 2; visibility: visible; }
+  6%, 24% { opacity: 1; z-index: 2; visibility: visible; }
+  25%, 100% { opacity: 0; z-index: 0; visibility: hidden; }
+}
+@keyframes description{
+  0%, 5% { opacity: 0; z-index: 2; visibility: visible; }
+  6%, 24% { opacity: 1; z-index: 2; visibility: visible; }
+  25%, 100% { opacity: 0; z-index: 0; visibility: hidden; }
+}
+.home .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-0{
+  -webkit-animation: description 32000ms infinite -2000ms ease;
+  -moz-animation: description 32000ms infinite -2000ms ease;
+  -ms-animation: description 32000ms infinite -2000ms ease;
+  -o-animation: description 32000ms infinite -2000ms ease;
+  animation: description 32000ms infinite -2000ms ease;
+}
+.home .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-1{
+  -webkit-animation: description 32000ms infinite 6000ms ease;
+  -moz-animation: description 32000ms infinite 6000ms ease;
+  -ms-animation: description 32000ms infinite 6000ms ease;
+  -o-animation: description 32000ms infinite 6000ms ease;
+  animation: description 32000ms infinite 6000ms ease;
+}
+.home .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-2{
+  -webkit-animation: description 32000ms infinite 14000ms ease;
+  -moz-animation: description 32000ms infinite 14000ms ease;
+  -ms-animation: description 32000ms infinite 14000ms ease;
+  -o-animation: description 32000ms infinite 14000ms ease;
+  animation: description 32000ms infinite 14000ms ease;
+}
+.home .slider > #input-slide-autoplay:checked ~ .slide-description > .slide-3{
+  -webkit-animation: description 32000ms infinite 22000ms ease;
+  -moz-animation: description 32000ms infinite 22000ms ease;
+  -ms-animation: description 32000ms infinite 22000ms ease;
+  -o-animation: description 32000ms infinite 22000ms ease;
+  animation: description 32000ms infinite 22000ms ease;
+}
+.home .slider > #input-slide-autoplay:checked ~ .slide-description > label{
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;  	
+}
+
+.home .slider-dot label{
+ border:1px solid black; 
+}
+
+/* -- cards --*/
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.10rem;
+  margin-top: 10px
+}
+
+.card-product-grid:hover {
+  -webkit-box-shadow: 0 4px 15px rgba(153, 153, 153, 0.3);
+  box-shadow: 0 4px 15px rgba(153, 153, 153, 0.3);
+  -webkit-transition: .3s;
+  transition: .3s
+}
+
+.card-product-grid .img-wrap {
+  border-radius: 0.2rem 0.2rem 0 0;
+  height: 220px
+}
+
+.card .img-wrap {
+  overflow: hidden
+}
+
+.card-lg .img-wrap {
+  height: 280px
+}
+
+.card-product-grid .img-wrap {
+  border-radius: 0.2rem 0.2rem 0 0;
+  height: 228px;
+  padding: 16px
+}
+
+[class*='card-product'] .img-wrap img {
+  height: 100%;
+  max-width: 100%;
+  width: auto;
+  display: inline-block;
+  -o-object-fit: cover;
+  object-fit: cover
+}
+
+.img-wrap {
+  text-align: center;
+  display: block
+}
+
+.card-product-grid .info-wrap {
+  overflow: hidden;
+  padding: 18px 20px
+}
+
+[class*='card-product'] a.title {
+  color: #212529;
+  display: block
+}
+
+.rating-stars {
+  display: inline-block;
+  vertical-align: middle;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  white-space: nowrap;
+  clear: both
+}
+
+.rating-stars li.stars-active {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden
+}
+
+.rating-stars li {
+  display: block;
+  text-overflow: clip;
+  white-space: nowrap;
+  z-index: 1
+}
+
+.card-product-grid .bottom-wrap {
+  padding: 18px;
+  border-top: 1px solid #e4e4e4
+}
+
+/* -- navbar-nav */
+
+.navbar-nav .nav-item,
+.navbar-nav .nav-item:hover { 
+  border-top-right-radius:0; 
+  border-top-left-radius:0;
+}
+
+.navbar-nav.ml-auto { border-radius:0; }
+.navbar-nav.ml-auto .dropdown-menu { border:0; }
+.navbar-nav .nav-item { border:0 !important; }
+
+.nav-node.nav-link.w-100 span { text-align:left !important; border-bottom:1px dotted #fff;}
+.nav-item .dropdown-menu { border: 0 !important; border-radius:0; }
+
+.navbar-nav input[type=checkbox]:checked ~ .dropdown-menu{
+  display:block !important;
+}
+.navbar-nav input[type=checkbox]:checked,
+.navbar-nav input[type=checkbox]{
+  color:transparent;
+  background:transparent;
+  border:0;
+  appearance:none;
+  width:2em;
+  height:2em;
+}
+.navbar-nav input[type=checkbox] + i{
+  font-family: 'Font Awesome 5 Free';
+  color: #000;
+  font-size: 1.1rem;
+  content: "\f107";
+  font-weight:900;
+  color:#fff;
+  display:inline-block;
+  transform:rotate(90deg);
+}
+
+.navbar-nav input[type=checkbox]:checked + i{
+  color:#fff;
+  transform:rotate(0);
+  transition: all .4s; 
+}
+
+.navbar-nav .nav-item:hover > .nav-node.nav-link.w-100 a,
+.navbar-nav .nav-item .nav-node.nav-link.w-100 a:hover{
+  color:#fff;
+}
+
+.navbar-nav button:hover,
+.navbar-nav a:hover { color:#fff; }
+.navbar-nav a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.navbar-nav .dropdown-menu li:hover,
+.navbar-nav .dropdown-menu { background:rgb(55, 71, 79); }
+
+.navbar-nav .dropdown-item .btn:hover,
+.navbar-nav a:hover { color:#fff !important; }
+
+.navbar-nav .dropdown-item .btn,
+.navbar-nav .dropdown-menu div { color: rgba(255,255,255,0.5) !important; }
+
+.navbar-nav a { color: rgba(255,255,255,0.5); text-decoration: none !important; }
+.navbar-nav .dropdown-menu li:hover,
+.navbar-nav .dropdown-menu { background:rgb(55, 71, 79); }
+
+@media(min-width:992px){
+  .navbar-nav .dropdown-menu{ 
+    background:#fff; 
+    border-left:1px solid #ccc !important;
+    border-right:1px solid #ccc !important;
+    border-bottom:1px solid #ccc !important;
+  }
+  
+  .navbar-nav .nav-link.w-100:after,
+  .navbar-nav .nav-item.has-children .nav-node.w-100:after{
+    font-family: 'Font Awesome 5 Free';
+    color: #000;
+    font-size: 1.1rem;
+    content: "\f107";
+    font-weight:900;
+    color:#fff;
+    display:inline-block;
+    transform:rotate(90deg);
+  }
+  
+  .navbar-nav .nav-item:hover > .nav-link:after{
+    color:#000;
+    transform:rotate(0);
+    transition: all .4s; 
+  }
+  
+  .navbar-nav .nav-item:hover > .nav-node.nav-link.w-100 a,
+  .navbar-nav .nav-item .nav-node.nav-link.w-100 a:hover{
+    color:#000;
+  }
+  
+  
+  .navbar-nav .nav-item .currency,
+  .navbar-nav .nav-item .cart{
+    top:2.54em; 
+    left:0em;
+  }
+  
+  .navbar-nav .nav-item:hover{
+    background:#fff;
+    border-top-right-radius:0.25em;
+    border-top-left-radius:0.25em;
+  }
+  
+  .navbar-nav input[type="checkbox"]:checked ~ ul,
+  .navbar-nav .nav-item > .dropdown-menu{
+    display:none !important;
+  }
+  
+  .navbar-nav .nav-item:hover > .dropdown-menu{
+    display:block !important;
+    border-top:0;
+    border-top-right-radius:0;
+    border-top-left-radius:0;
+    border-bottom-left-radius:0.25em;
+    border-bottom-right-radius:0.25em;
+  }
+  
+  .navbar-nav .dropdown-menu a,
+  .navbar-nav .nav-link { color:rgba(0,0,0,0.5); }
+  
+  .navbar-nav .dropdown-menu .btn,
+  .navbar-nav .dropdown-menu div,
+  .navbar-nav .dropdown-item .btn:hover, .navbar-nav a:hover,
+  .navbar-nav .nav-item:hover > a,
+  .navbar-nav .nav-item:hover > .nav-link:hover,
+  .navbar-nav .nav-item:hover > span:hover,
+  .navbar-nav .nav-item:hover > span,
+  .navbar-nav .nav-item:hover > .dropdown-menu li a,
+  .navbar-nav .nav-item:hover > .dropdown-menu li{
+    color:#000 !important;
+    background:#fff;
+  };
+  
+  .navbar-nav .nav-item .nav-node.nav-link.w-100 a{
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+body.pb-4 .navbar.navbar-dark.fixed-top{
+  padding-top:0;
+  padding-bottom:0;
+}
+
+/* -- banner -- */
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+
+#mfooter{
+  margin-top:2em;
+}
+
+/*-- --*/
+
+.admin-categories ul{
+  background:#fff;
+}
+
+.admin-categories li{
+  line-height:2em;
+}
+
+.admin-categories li:nth-child(even){
+  background:#f8f9fa;
+}
+
+.admin-categories li:nth-child(odd){
+  background:#fff;
+}
+
+.admin-categories a.btn{
+  display: block;
+  float: right;
+}
+
+.admin-categories .col-md-3:nth-child(2){
+  text-align:right;
+}
+
+.admin-stats .card-footer { height:4em; }
+.admin-stats .card-body { height:5em; }
+
+.cats div input[type=checkbox],
+.cats div input[type=checkbox]:checked{ 
+  appearance:none; 
+  -webkit-appearance:none;
+  -moz-appearance:none;
+}
+
+@media (max-width:991.98px){
+  .tree-nav{
+    display:none;
+  }
+  
+  .cats div input[type=checkbox]:checked ~ nav{
+    display:block;
+  }
+  
+  .cats div input[type=checkbox] + i{
+    font-family: 'Font Awesome 5 Free';
+    color: #000;
+    font-size: 1.1rem;
+    content: "\f107";
+    font-weight:900;
+    color:#000;
+    display:inline-block;
+    transform:rotate(90deg);
+  }
+  
+  .cats div input[type=checkbox]:checked + i{
+    color:#000;
+    transform:rotate(0);
+    transition: all .4s; 
+  }
+  
+  .cats input[type=checkbox],
+  .cats input[type=checkbox]:checked{
+    width:2em;
+    height:2em;
+  }
+  
+  .cats input[type=checkbox] + i {
+    position: absolute;
+    right: 1em;
+    top: 0.5em;
+  }
+  
+   .cats input[type=checkbox]:checked + i{
+     color:#000;
+     transform:rotate(0);
+     transition: all .4s;
+     position: absolute;
+     right: 1em;
+     top: 0.5em;
+  } 
+}
+
+.cats input[type=checkbox],
+.navbar-nav input[type=checkbox],
+.navbar-toggler:hover{
+  cursor:grabbing;
+}
+
+@media (min-width:992px){
+  .contact p { 
+    text-align:left; 
+    white-space:nowrap; 
+  }
+  
+  #categories {  
+    position:sticky; 
+    top:4em; 
+    position: -webkit-sticky; /* Safari */ 
+  }
+}
+
+#mfooter .container .row h6 a,
+#mfooter .container .row p a,
+.contact i+a,
+.contact i+p a{
+  color:rgb(108, 117, 125);
+}
+
+#top-jumper{
+  z-index:99999;
+}
+
+#top-jumper a {
+  padding:1em;
+  border-radius:0.25em;
+  border:1px solid #ccc;
+}
+
+@media (min-width:992px){
+  .shop-menu .shop .row{
+    margin-left:0;
+    margin-right:0;
+  }
+  .shop-menu .shop .dropdown-menu{
+    width:50vw;
+    left:-20vw !important;
+  }
+  
+  figure.card .info-wrap .row a.title {
+    height:3em;
+    overflow:clip;
+  }
+  
+  .home .slider {
+    margin-top:2.2em;
+  }
+  
+  .main-breadcrumb {
+    margin-top:2.5em;
+  }
+}
+
+.row.vendors .profile-card { margin-bottom:0; }
