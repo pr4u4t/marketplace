@@ -2,6 +2,21 @@
 
 @section('title', 'Purchases')
 
+@php
+if(Request::is('profile/purchases')){}
+
+@endphp
+
+@section('profile-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'          => '/',
+        'Profile'       => route('profile.index'),
+        'Purchases'     => route('profile.purchases')
+    ]
+])
+@endsection
+
 @section('profile-content')
     @include('includes.flash.success')
     @include('includes.flash.error')
@@ -11,27 +26,27 @@
     <ul class="nav nav-tabs nav-fill mb-3">
         <li class="nav-item">
             <a class="nav-link @if(!array_key_exists($state, \App\Purchase::$states)) active @endif" href="{{ route('profile.purchases') }}">
-                All ({{ auth() -> user() -> purchasesCount() }})
+                All ({{ auth()->user()->purchasesCount() }})
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link @if($state == 'purchased') active @endif" href="{{ route('profile.purchases', 'purchased') }}">
-                Purchased ({{ auth() -> user() -> purchasesCount('purchased') }})
+                Purchased ({{ auth()->user()->purchasesCount('purchased') }})
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link @if($state == 'sent') active @endif" href="{{ route('profile.purchases', 'sent') }}">
-                Sent ({{ auth() -> user() -> purchasesCount('sent') }})
+                Sent ({{ auth()->user()->purchasesCount('sent') }})
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link @if($state == 'delivered') active @endif" href="{{ route('profile.purchases', 'delivered') }}">
-                Delivered ({{ auth() -> user() -> purchasesCount('delivered') }})
+                Delivered ({{ auth()->user()->purchasesCount('delivered') }})
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link @if($state == 'disputed') active @endif" href="{{ route('profile.purchases', 'disputed') }}">
-                Disputed ({{ auth() -> user() -> purchasesCount('disputed') }})
+                Disputed ({{ auth()->user()->purchasesCount('disputed') }})
             </a>
         </li>
     </ul>
@@ -84,13 +99,11 @@
                 <td class="text-right">
                     <a href="{{ route('profile.purchases.single', $purchase) }}" class="btn btn-sm {{ $purchase -> isCanceled() ? 'btn-danger' : 'btn-mblue' }} mt-1"
                          >@if($purchase->isCanceled()) <em>Canceled</em> @else {{ $purchase -> short_id }} @endif</a>
-
-
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
 
-    {{ $purchases -> links('includes.paginate') }}
+    {{ $purchases->links('includes.paginate') }}
 @stop

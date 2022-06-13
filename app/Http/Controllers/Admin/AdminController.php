@@ -63,7 +63,8 @@ class AdminController extends Controller
                 'total_spent'           => Purchase::totalSpent(),
                 'total_earnings_coin'   => Purchase::totalEarningPerCoin(),
                 'xmpp'                  => config('app.xmpp'),
-                'mail'                  => config('app.email')
+                'mail'                  => config('app.email'),
+                'roots'                 => Category::roots()
             ]
         );
     }
@@ -77,10 +78,11 @@ class AdminController extends Controller
         $this->categoriesCheck();
 
         return view('admin.categories',[
-                'rootCategories'    => Category::roots(),
-                'categories'        => Category::nameOrdered(),
+                'rootCategories'    => Category::adminRoots(),
+                'categories'        => Category::adminNameOrdered(),
                 'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email')
+                'mail'              => config('app.email'),
+                'roots'             => Category::roots()
             ]
         );
     }
@@ -97,7 +99,7 @@ class AdminController extends Controller
             $request->persist();
             session()->flash('success', 'You have added new category!');
         }catch (RequestException $e){
-            session()->flash('errormessage', $e -> getMessage());
+            session()->flash('errormessage', $e->getMessage());
         }
         
         return redirect()->back();
@@ -112,7 +114,7 @@ class AdminController extends Controller
      */
     public function removeCategory($id){
         try {
-            $this -> categoriesCheck();
+            $this->categoriesCheck();
             $catToDelete = Category::findOrFail($id);
             $catToDelete->delete();
 
@@ -136,9 +138,9 @@ class AdminController extends Controller
 
         return view('admin.category', [
             'category'      => $categoryToShow,
-            'categories'    => Category::nameOrdered(),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
 
     }
@@ -169,11 +171,12 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function massMessage(){
-        $this -> messagesCheck();
+        $this->messagesCheck();
 
         return view('admin.messages', [
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -184,16 +187,17 @@ class AdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function sendMessage(SendMessagesRequest $request){
-        $this -> messagesCheck();
+        $this->messagesCheck();
+        
         try{
             $noMessages = $request -> persist();
-            session() -> flash('success', "$noMessages messages has been sent!");
+            session()->flash('success', "$noMessages messages has been sent!");
         }
         catch (RequestException $e){
-            $e -> flashError();
+            $e->flashError();
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -202,12 +206,13 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function disputes(){
-        $this -> disputesCheck();
+        $this->disputesCheck();
 
         return view('admin.disputes', [
             'allDisputes'   => Dispute::paginate(config('marketplace.products_per_page')),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 
@@ -219,17 +224,17 @@ class AdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function resolveDispute(ResolveDisputeRequest $request, Purchase $purchase){
-        $this -> disputesCheck();
+        $this->disputesCheck();
 
         try{
-            $purchase -> resolveDispute($request -> winner);
-            session() -> flash('success', 'You have successfully resolved this dispute!');
+            $purchase->resolveDispute($request->winner);
+            session()->flash('success', 'You have successfully resolved this dispute!');
         }
         catch (RequestException $e){
-            $e -> flashError();
+            $e->flashError();
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
 
@@ -243,7 +248,8 @@ class AdminController extends Controller
         return view('admin.purchase', [
             'purchase'  => $purchase,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -254,9 +260,10 @@ class AdminController extends Controller
      */
     public function tickets(){
         return view('admin.tickets', [
-            'tickets' => Ticket::orderByDesc('created_at') -> paginate(config('marketplace.posts_per_page')),
+            'tickets' => Ticket::orderByDesc('created_at')->paginate(config('marketplace.posts_per_page')),
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -272,7 +279,8 @@ class AdminController extends Controller
             'ticket'    => $ticket,
             'replies'   => $ticket -> replies()->orderByDesc('created_at')-> paginate(config('marketplace.posts_per_page')),
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -301,13 +309,15 @@ class AdminController extends Controller
         return view('admin.vendorpurchases', [
             'vendors' => Vendor::orderByDesc('created_at')->paginate(24),
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
     
     
     public function removeTickets(Request $request){
         $type = $request->type;
+        
         if ($type == 'all'){
             foreach (Ticket::all() as $ticket){
                 $ticket->delete();
@@ -326,5 +336,25 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
+    }
+    
+    public function flushCache(){
+        \Cache::flush();
+        return redirect()->back();
+    }
+    
+    /**
+     * Show form for editing category
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function performance(){
+        return view('admin.performance', [
+            'xmpp'          => config('app.xmpp'),
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
+        ]);
+        
     }
 }

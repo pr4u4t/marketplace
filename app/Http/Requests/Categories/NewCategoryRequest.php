@@ -23,9 +23,12 @@ class NewCategoryRequest extends FormRequest
      */
     public function rules(){
         return [
-            'name'      => 'required|string',
-            'parent_id' => 'nullable|exists:categories,id',
-            'weight'    => 'integer'
+            'name'          => 'required|string',
+            'parent_id'     => 'nullable|exists:categories,id',
+            'typography'    => 'nullable|string',
+            'description'   => 'nullable|string',
+            'weight'        => 'required|integer',
+            'active'        => 'nullable|string'
         ];
     }
 
@@ -35,6 +38,9 @@ class NewCategoryRequest extends FormRequest
         $categoryInsert->name = $this->name;
         $categoryInsert->parent_id = $this->parent_id;
         $categoryInsert->weight = $this->weight;
+        $categoryInsert->description = $this->description;
+        $categoryInsert->icon = $this->typography;
+        $categoryInsert->active = $this->has('active') ? true : false;
         $categoryInsert->save();
     }
 }

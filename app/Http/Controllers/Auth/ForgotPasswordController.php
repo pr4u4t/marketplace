@@ -14,22 +14,25 @@ class ForgotPasswordController extends Controller
 {
     public function showForget(){
         return (Auth::check()) ? redirect()->back() : view('auth.forgotpassword.forgotpassword')->with([
-            'xmpp'  => config('app.xmpp'),
-            'mail'  => config('app.email')
+            'xmpp'      => config('app.xmpp'),
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
     public function showMnemonic(){
         return (Auth::check()) ? redirect()->back() : view('auth.forgotpassword.mnemonicpassword')->with([
-            'xmpp'  => config('app.xmpp'),
-            'mail'  => config('app.email')
+            'xmpp'      => config('app.xmpp'),
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
     public function showPGP(){
         return (Auth::check()) ? redirect()->back() : view('auth.forgotpassword.pgppassword')->with([
-            'xmpp'  => config('app.xmpp'),
-            'mail'  => config('app.email')
+            'xmpp'      => config('app.xmpp'),
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -53,8 +56,9 @@ class ForgotPasswordController extends Controller
 
     public function showVerify(){
         return (Auth::check()) ? redirect()->back() : view('auth.forgotpassword.pgppasswordverify')->with([
-            'xmpp'  => config('app.xmpp'),
-            'mail'  => config('app.email')
+            'xmpp'      => config('app.xmpp'),
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 

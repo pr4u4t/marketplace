@@ -1,6 +1,6 @@
 @extends('master.main')
 
-@section('title','Product - ' . $product -> name )
+@section('title','Product - ' . $product->name )
 
 @section('content')
 
@@ -10,12 +10,12 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('home') }}"> Home </a>
             </li>
-            @foreach($product -> category -> parents() as $ancestor)
+            @foreach($product->category->parents() as $ancestor)
                 <li class="breadcrumb-item" aria-current="page"><a
-                            href="{{ route('category.show', $ancestor) }}">{{ $ancestor -> name }}</a></li>
+                            href="{{ route('market.category.show', $ancestor) }}">{{ $ancestor->name }}</a></li>
             @endforeach
             <li class="breadcrumb-item active" aria-current="page"><a
-                        href="{{ route('category.show', $product -> category) }}">{{ $product -> category -> name }}</a>
+                        href="{{ route('market.category.show', $product -> category) }}">{{ $product->category->name }}</a>
             </li>
         </ol>
     </nav>
@@ -81,8 +81,8 @@
                                 <ul>
                                     @foreach($product -> offers as $offer)
                                         <li>
-                                            <strong>@include('includes.currency', ['value' => $offer->price])</strong> per {{ str_plural($product -> mesure, 1) }},
-                                            for at least {{ $offer -> min_quantity }} {{ str_plural('product', $offer -> min_quantity) }}
+                                            <strong>@include('includes.currency', ['value' => $offer->price])</strong> per {{ Illuminate\Support\Str::plural($product -> mesure, 1) }},
+                                            for at least {{ $offer -> min_quantity }} {{ Illuminate\Support\Str::plural('product', $offer -> min_quantity) }}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -102,8 +102,8 @@
                         <tr>
                             <td class="text-right text-muted">Left/Sold</td>
                             <td>
-                                <span class="badge badge-light">{{ $product -> quantity }} {{ str_plural($product -> mesure, $product -> quantity) }}</span>/
-                                <span class="badge badge-light">{{ $product -> numberOfPurchases() }} {{ str_plural($product -> mesure, $product -> orders) }} </span>
+                                <span class="badge badge-light">{{ $product -> quantity }} {{ Illuminate\Support\Str::plural($product -> mesure, $product -> quantity) }}</span>/
+                                <span class="badge badge-light">{{ $product -> numberOfPurchases() }} {{ Illuminate\Support\Str::plural($product -> mesure, $product -> orders) }} </span>
                             </td>
                         </tr>
                         <tr>
@@ -176,7 +176,7 @@
                                            value="1"
                                            max="{{ $product -> quantity }}"
                                            class="@if($errors -> has('amount')) is-invalid @endif form-control form-control-sm"
-                                           placeholder="Amount of {{ str_plural($product -> mesure) }}"/>
+                                           placeholder="Amount of {{ Illuminate\Support\Str::plural($product -> mesure) }}"/>
                                 </div>
                                 <div class="col-md-7">
                                     <button class="btn btn-sm btn-block mb-2 btn-primary"><i class="fas fa-plus mr-2"></i>Add to

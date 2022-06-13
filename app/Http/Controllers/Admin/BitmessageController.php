@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Marketplace\Bitmessage\Bitmessage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Category;
 
 class BitmessageController extends Controller
 {
@@ -57,7 +58,8 @@ class BitmessageController extends Controller
             'test'      => $connectionTest,
             'address'   => $this->address,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 

@@ -31,6 +31,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'google-site' => 'Zj7NLkgIQx5-p-TD46solN8sR_qANXo6ykmWqdtbJkU',
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -184,7 +186,7 @@ return [
 
         // search
         Laravel\Scout\ScoutServiceProvider::class,
-        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
+        #ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
 
     ],
 

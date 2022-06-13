@@ -14,6 +14,34 @@ class Category extends Model
     protected $keyType = 'string';
 
 
+    public static function allActiveIds(){
+        if(config('app.cache')){
+            return Cache::remember('category:active',600,function() {
+                $ret = array();
+                $categories = Category::whereNull('parent_id')->where('active',true);
+                
+                foreach($categories as $category){
+                    if($category->active){
+                        array_merge($ret,$category->allChildrenIds());
+                    }
+                }
+                
+                return $ret;
+            });
+        }
+        
+        $ret = array();
+        $categories = Category::whereNull('parent_id')->where('active',true);
+        
+        foreach($categories as $category){
+            if($category->active){
+                array_merge($ret,$category->allChildrenIds());
+            }
+        }
+        
+        return $ret;
+    }
+    
     /**
      * Returns collection of root categories
      *
@@ -21,25 +49,41 @@ class Category extends Model
      */
     public static function roots($ordby = 'name', $order = 'asc'){
         $ret = config('app.cache') ? Cache::remember('category:roots:'.$ordby.':'.$order,600,function() use($ordby,$order){
-            return category::whereNull('parent_id')->orderBy($ordby,$order)->get();
-        }) : self::whereNull('parent_id')->orderBy($ordby,$order)->get();
+            return Category::whereNull('parent_id')->where('active',true)->orderBy($ordby,$order)->get();
+        }) : self::whereNull('parent_id')->where('active',true)->orderBy($ordby,$order)->get();
         
         return $ret;
     }
 
+    public static function adminRoots(){
+        $ret = config('app.cache') ? Cache::remember('category:adminRoots',600,function() {
+            return category::whereNull('parent_id')->get();
+        }) : self::whereNull('parent_id')->get();
+        
+        return $ret;
+    }
+    
     /**
      * Returns the collection of all categories A-Z ordered
      *
      * @return \Illuminate\Support\Collection
      */
     public static function nameOrdered(){
-        $ret = config('app.cache') ? Cache::remember('category:nameOrdered',600,function(){
-            return category::orderBy('name')->get();
-        }) : self::orderBy('name')->get();
+        $ret = config('app.cache') ? Cache::remember('category:adminNameOrdered',600,function(){
+            return Category::where('active',true)->orderBy('name')->get();
+        }) : self::where('active',true)->orderBy('name')->get();
         
         return $ret;
     }
 
+    public static function adminNameOrdered(){
+        $ret = config('app.cache') ? Cache::remember('category:nameOrdered',600,function(){
+            return Category::orderBy('name')->get();
+        }) : self::orderBy('name')->get();
+        
+        return $ret;
+    }
+    
     /**
      * @return \App\Category parent category, null for root category
      */
@@ -64,8 +108,8 @@ class Category extends Model
     public function getChildrenAttribute(){
         $id = $this->id;
         $ret = config('app.cache') ? Cache::remember('category:'.$id.':children',600,function() use($id){
-            return category::where('parent_id', $id)->get();
-        }) : self::where('parent_id', $id)->get();
+            return Category::where('parent_id', $id)->where('active',true)->get();
+        }) : self::where('parent_id', $id)->where('active',true)->get();
         
         return $ret;
     }
@@ -91,7 +135,7 @@ class Category extends Model
         // while is not root
         while($tempCategory){
             // true, if tempCategory equals this category
-            if($tempCategory-> id == $this->id)
+            if($tempCategory->id == $this->id)
                 return true;
             $tempCategory = $tempCategory->parent;
         }
@@ -103,34 +147,14 @@ class Category extends Model
      * @return int num products this category and all subcategories sumed up
      */
     public function getNumProductsAttribute(){
-        if(!config('app.cache')){
-            $numProducts = count($this->products);
-
-            $otherCategories = Category::where('id', '<>', $this->id)->get();
-            foreach($otherCategories as $categ){
-                if($this->isAncestorOf($categ))
-                    $numProducts += count($categ->products);
-            }
-            
-            return $numProducts;
-        }else{
-            $lex = $this;
-            return Cache::remember('category:'.$this->id.':NumProducts',600,function() use($lex){
-                $numProducts = count($lex->products);
-                
-                $otherCategories = Category::where('id', '<>', $lex->id)->get();
-                foreach($otherCategories as $categ){
-                    if($lex->isAncestorOf($categ))
-                        $numProducts += count($categ->products);
-                }
-                
-                return $numProducts; 
-            });
-        }
+        $lex = $this;
+        return config('app.cache') ? Cache::remember('category:'.$this->id.':num_products',600,function() use($lex){
+            return count($lex->childProducts(false));
+        }) : count($this->childProducts(false));
     }
 
     /**
-     * Returns collection of all ancestors, gets the recursivly
+     * Returns collection of all ancestors, gets the recursively
      *
      * @return mixed
      */
@@ -181,9 +205,10 @@ class Category extends Model
      *
      * @return mixed
      */
-    public function childProducts(){
+    public function childProducts($paginate = true){
         $allAcceptedCategoriesIds = array_merge([$this->id], $this->allChildrenIds());
-        return Product::where('active', true)->whereIn('category_id', $allAcceptedCategoriesIds)->orderByDesc('created_at')
-            ->paginate(config('marketplace.products_per_page'));
+        $children = Product::where('active', true)->whereIn('category_id', $allAcceptedCategoriesIds)->orderByDesc('created_at');
+        
+        return $paginate ? $children->paginate(config('marketplace.products_per_page')) : $children->get();
     }
 }

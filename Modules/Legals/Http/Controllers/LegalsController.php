@@ -5,6 +5,7 @@ namespace Modules\Legals\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use App\Category;
 
 class LegalsController extends Controller{
     
@@ -12,6 +13,7 @@ class LegalsController extends Controller{
         return view('legals::faq',[
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
     
@@ -19,6 +21,7 @@ class LegalsController extends Controller{
         return view('legals::terms',[
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
     
@@ -26,6 +29,7 @@ class LegalsController extends Controller{
         return view('legals::mission',[
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
     /**

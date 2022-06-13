@@ -2,12 +2,16 @@
 
 Route::get('/', 'IndexController@home')->name('home');
 
-Route::get('/category/{category}', 'IndexController@category')->name('category.show');
+Route::get('/category/{category}', 'IndexController@category')->name('market.category.show');
 
 Route::get('/login', 'IndexController@login')->name('login');
 Route::get('/confirmation', 'IndexController@confirmation')->name('confirmation');
 
 Route::get('setview/{list}', 'IndexController@setView')->name('setview');
+
+//User routes
+Route::get('users','IndexController@showUsers')->name('users.show');
+Route::get('user/{user}','IndexController@showUser')->name('user.show');
 
 // Product routes
 Route::get('product/{product}', 'ProductController@show')->name('product.show');
@@ -17,7 +21,7 @@ Route::get('product/{product}/delivery', 'ProductController@showDelivery')->name
 Route::get('product/{product}/vendor', 'ProductController@showVendor')->name('product.vendor');
 
 // category routes
-Route::get('category/{category}', 'IndexController@category')->name('category.show');
+//Route::get('category/{category}', 'IndexController@category')->name('category.show');
 
 // vendor routes
 Route::get('vendor/{user}', 'IndexController@vendor')->name('vendor.show');

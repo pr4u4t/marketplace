@@ -10,8 +10,8 @@ Route::prefix('profile')->group(function(){
     Route::post('changepassword', 'ProfileController@changePassword')->name('profile.password.change'); // change password route
     Route::get('2fa/{turn}', 'ProfileController@change2fa')->name('profile.2fa.change'); // change 2fa
     Route::get('jswarn/{turn}', 'ProfileController@changeJSWarn')->name('profile.jswarn.change'); // change 2fa
-    Route::post('contact/update')->name('profile.contact.post');
-    Route::post('avatar/update')->name('profile.avatar.post');
+    Route::post('contact/update','ProfileController@contactUpdate')->name('profile.contact.post');
+    Route::post('avatar/update','ProfileController@avatarUpdate')->name('profile.avatar.post');
     
     // add or remove to whishlist
     Route::get('add/wishlist/{product}', 'ProfileController@addRemoveWishlist') -> name('profile.wishlist.add');

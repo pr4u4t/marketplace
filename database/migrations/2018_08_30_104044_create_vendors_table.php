@@ -19,8 +19,8 @@ class CreateVendorsTable extends Migration{
             $table->text('profilebg')->nullable();
             $table->boolean('trusted')->default(false);
             $table->timestamps();
-            $table -> primary('id');
-            $table -> foreign('id') -> references('id') -> on('users') -> onDelete('cascade');
+            $table->primary('id');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

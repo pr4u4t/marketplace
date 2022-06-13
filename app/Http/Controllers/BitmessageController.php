@@ -7,6 +7,7 @@ use App\Http\Requests\Bitmessage\ConfirmAddressRequest;
 use App\Http\Requests\Bitmessage\SendConfirmationRequest;
 use App\Marketplace\Bitmessage\Bitmessage;
 use Illuminate\Http\Request;
+use App\Category;
 
 class BitmessageController extends Controller
 {
@@ -51,7 +52,8 @@ class BitmessageController extends Controller
             'address'   => $this->address,
             'user'      => auth()->user(),
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
     public function sendConfirmation(SendConfirmationRequest $request){

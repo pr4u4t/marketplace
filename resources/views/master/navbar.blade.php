@@ -22,7 +22,7 @@
                 <li class="nav-item has-children text-center shop" style="position:relative; padding: 0 1.5rem;">
                     <span class="nav-node nav-link w-100">
                         <a href="{{ route('index.shop') }}">
-                            <span class="d-block d-lg-inline-block">Shop</span>
+                            <span class="d-block d-lg-inline-block">Market</span>
                         </a>
                     </span>
                     <input class="d-lg-none" type="checkbox" style="position:absolute; right:1em; top:0.5em; z-index:500">
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-6"> 
                                 <h4><a href="{{ route('categories') }}">Categories</a></h4>
-                                
+                                @include('includes.categories_menu',[ 'categories' => $roots, 'badge' => true, 'icon' => true])
                             </div>
                             <div class="col-md-12 col-lg-6"> 
                                 <h4><a href="{{ route('vendors') }}">Vendors</a></h4>
@@ -43,6 +43,11 @@
                 <li class="nav-item has-children text-center" style="position:relative; padding: 0 1.5rem;">
                     <span class="nav-node nav-link w-100">
                         <span class="d-block d-lg-inline-block"><a href="{{ route('contact') }}">Contact</a></span>
+                    </span>
+                </li>
+                <li class="nav-item has-children text-center home" style="position:relative; padding: 0 1.5rem;">
+                    <span class="nav-node nav-link w-100">
+                        <span class="d-block d-lg-inline-block"><a href="{{ route('forum.index') }}">Forum</a></span>
                     </span>
                 </li>
             </ul>
@@ -90,6 +95,10 @@
                         <li class="dropdown-item @isroute('admin') active @endisroute">
                             <a class="nav-link" href="{{ route('admin.index') }}">Admin panel</a>
                         </li>
+                        <li class="dropdown-item @isroute('admin') active @endisroute">
+                            <a class="nav-link" href="{{ route('admin.flush') }}">Flush cache</a>
+                        </li>
+                        
                     @endadmin
                     
                     @moderator

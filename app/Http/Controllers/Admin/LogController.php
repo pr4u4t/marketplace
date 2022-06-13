@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
-class LogController extends Controller
-{
-
-
-
+class LogController extends Controller{
     /**
      * For how many minutes to cache the logs
      *
@@ -42,11 +39,13 @@ class LogController extends Controller
         $logs = Cache::remember('logs', $this->logsCacheTimeMinutes, function () {
             return Log::with('user')->orderBy('created_at','desc')->paginate($this->logsPerPage);
         });
+        
         return view('admin.log')->with([
             'cacheMinutes'  => $this->logsCacheTimeMinutes,
             'logs'          => $logs,
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 }

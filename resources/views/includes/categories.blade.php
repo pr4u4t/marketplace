@@ -7,7 +7,8 @@
         @include('includes.subcategories', [
             'categories'    => $categories,
             'open'          => isset($open) ? $open : false,
-            'badge'         => isset($badge) ? $badge : false
+            'badge'         => isset($badge) ? $badge : false,
+            'icon'          => isset($icon) ? $icon : false
         ])
     </nav>
 </div>

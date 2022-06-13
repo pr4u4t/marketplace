@@ -9,6 +9,7 @@ use App\Rules\Captcha;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Defuse\Crypto\Crypto;
+use Illuminate\Support\Str;
 
 class SignUpRequest extends FormRequest {
 
@@ -29,7 +30,7 @@ class SignUpRequest extends FormRequest {
     public function rules() {
         return [
             'captcha' => ['required', new Captcha()],
-            'username' => 'required|unique:users|alpha_num|min:4|max:12',
+            'username' => 'required|unique:users|alpha_num|min:4|max:32',
             'password' => 'required|confirmed|min:8',
 
         ];
@@ -83,7 +84,7 @@ class SignUpRequest extends FormRequest {
         $user->username = $this->username;
         $user->password = bcrypt($this->password);
         $user->mnemonic = bcrypt(hash('sha256', $mnemonic));
-        $user->referral_code = strtoupper(str_random(6));
+        $user->referral_code = strtoupper(Str::random(6));
         $user->msg_public_key = encrypt($publicKey);
 	$user->msg_private_key = $encryptedPrivateKey;
 	$user->currency = config('app.currency');

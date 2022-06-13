@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Ban;
 use App\Exceptions\RequestException;
 use App\Http\Requests\Admin\BanUserRequest;
@@ -35,7 +36,8 @@ class UserController extends Controller
         return view('admin.users')->with([
             'users'     => $users,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -44,9 +46,9 @@ class UserController extends Controller
 
 
         return redirect()->route('admin.users',[
-            'order_by' => $request->order_by,
+            'order_by'      => $request->order_by,
             'display_group' => $request->display_group,
-            'username' => $request -> username
+            'username'      => $request -> username
         ]);
     }
 
@@ -56,12 +58,13 @@ class UserController extends Controller
         return view('admin.user')->with([
             'user'      => $user,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
     public function editUserGroup(User $user,ChangeUserGroupRequest $request){
-        $this -> checkGate();
+        $this->checkGate();
 
         try{
             $request->persist($user);
@@ -69,6 +72,7 @@ class UserController extends Controller
             session()->flash('error',$e->getMessage());
             return redirect()->back();
         }
+        
         return redirect()->back();
     }
 
@@ -81,6 +85,7 @@ class UserController extends Controller
             session()->flash('error',$e->getMessage());
             return redirect()->back();
         }
+        
         return redirect()->back();
     }
 
@@ -138,7 +143,7 @@ class UserController extends Controller
         $ban->delete();
         session()->flash('success', "You have successfully removed ban!");
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
 }

@@ -2,6 +2,14 @@
 
 @section('content')
 
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'        => '/',
+        'Profile'     => route('profile.index'),
+        'Tickets'     => route('profile.tickets')  
+    ]
+])
+
     <div class="row">
         <div class="col-md-12">
             <h1 class="mb-3">Support</h1>

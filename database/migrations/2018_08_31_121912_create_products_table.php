@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->text('coins');
 
             $table->uuid('category_id');
-            $table->uuid('user_id') ->default("1");
+            $table->uuid('user_id')->default("1");
             $table->timestamps();
 
             // keys

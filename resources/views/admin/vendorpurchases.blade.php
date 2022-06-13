@@ -1,5 +1,15 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'              => '/',
+        'Admin'             => route('admin.index'),
+        'Vendor Purchases'  => route('admin.vendor.purchases'),
+    ]
+])
+@endsection
+
 @section('admin-content')
     <div class="row">
         <div class="col">

@@ -16,11 +16,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('username') -> unique();
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('session_id')->nullable();
             $table->text('mnemonic');
-            $table->text('payment_address') -> nullable();
+            $table->text('payment_address')->nullable();
             $table->timestamp('last_seen')->nullable();
             $table->boolean('login_2fa')->default(false);
             $table->string('referral_code');
@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->longText('msg_public_key')->nullable();
             $table->longText('msg_private_key')->nullable();
             $table->timestamps();
-            $table->foreign('referred_by')->references('id')->on('users') -> onDelete('set null');
+            $table->foreign('referred_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

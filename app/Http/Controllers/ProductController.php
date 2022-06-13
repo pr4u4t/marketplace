@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\PhysicalProduct;
 use App\Product;
 use Illuminate\Auth\AuthenticationException;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -57,7 +59,8 @@ class ProductController extends Controller
         return view('product.index', [
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -71,7 +74,8 @@ class ProductController extends Controller
         return view('product.rules', [
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -86,7 +90,8 @@ class ProductController extends Controller
         return view('product.feedback', [
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -101,7 +106,8 @@ class ProductController extends Controller
         return view('product.delivery', [
             'product' => $product->product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -116,7 +122,8 @@ class ProductController extends Controller
         return view('product.vendor', [
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -155,7 +162,8 @@ class ProductController extends Controller
         return view('profile.product.confirmclone')->with([
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -210,7 +218,7 @@ class ProductController extends Controller
                 $content = \Storage::disk('public')->get($image->image);
 
                 //$destination =  storage_path('app/public/products').strtolower(str_random(32));
-                $randomName = strtolower(str_random(32));
+                $randomName = strtolower(Str::random(32));
                 $name = "products/{$randomName}.jpg";
 
                 \Storage::disk('public')->put($name,$content);

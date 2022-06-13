@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use \App\User;
-class UsersSeeder extends Seeder
-{
+use Illuminate\Support\Str;
+
+class UsersSeeder extends Seeder{
 
 
     private $numberOfAccounts = 50;
@@ -51,7 +52,7 @@ class UsersSeeder extends Seeder
             $user->password = $userpassword;
             $user->mnemonic = bcrypt(hash('sha256',$username));
             $user->login_2fa = false;
-            $user->referral_code = strtoupper(str_random(6));
+            $user->referral_code = strtoupper(Str::random(6));
             $userKeyPair =  new \App\Marketplace\Encryption\Keypair();
             $userPrivateKey = $userKeyPair->getPrivateKey();
             $userPublicKey = $userKeyPair->getPublicKey();
@@ -66,7 +67,7 @@ class UsersSeeder extends Seeder
             $this->generateDepositAddressSeed($user);//$user -> generateDepositAddresses();
             // every fifth user is vendor
            if ($i % 5 == 0){
-               $user->becomeVendor('testAddress#'.strtoupper(str_random(6)));
+               $user->becomeVendor('testAddress#'.strtoupper(Str::random(6)));
            }
             $this->command->info('Created User '.($i+1).'/'.$this->numberOfAccounts);
             $this->createdAccounts++;

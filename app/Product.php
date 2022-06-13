@@ -31,8 +31,8 @@ class Product extends Model
      */
     public static function frontPage($by = null, $dir = null){
         $ret = config('app.cache') ? Cache::remember('products:front:newest',600,function() use ($by, $dir){
-            return Product::where('active', 1)->orderBy($by ?? 'created_at', $dir ?? 'desc')->paginate(9)->chunk(3);
-        }) : self::where('active', 1)->orderBy($by ?? 'created_at', $dir ?? 'desc')->paginate(9)->chunk(3);
+            return Product::where('active', 1)->whereIn('category_id',Category::allActiveIds())->orderBy($by ?? 'created_at', $dir ?? 'desc')->paginate(8)->chunk(4);
+        }) : self::where('active', 1)->whereIn('category_id',Category::allActiveIds())->orderBy($by ?? 'created_at', $dir ?? 'desc')->paginate(8)->chunk(4);
         
         return $ret;
     }
@@ -52,6 +52,14 @@ class Product extends Model
         return $ret;
     }
 
+    public function overall(){
+        $ret = config('app.cache') ? Cache::remember('products:all:count',600,function(){
+            return count(Product::where('active', 1)->get());
+        }) : count(self::where('active', 1)->get());
+        
+        return $ret;
+    }
+    
     /**
      * Get the indexable data array for the model.
      *

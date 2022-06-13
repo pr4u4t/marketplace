@@ -1,5 +1,15 @@
 @extends('master.profile')
 
+@section('profile-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'          => '/',
+        'Profile'       => route('profile.index'),
+        'Bitmessage'    => route('profile.bitmessage')
+    ]
+])
+@endsection
+
 @section('profile-content')
 
 
@@ -35,7 +45,7 @@
         <div class="form-group">
             @if(session()->has('bitmessage_confirmation'))
                 <button type="submit" class="btn btn-outline-secondary">Resend confirmation message</button>
-                <p class="text-muted">You can request new confirmation message every {{config('bitmessage.confirmation_msg_frequency')}} {{str_plural('second',config('bitmessage.confirmation_msg_frequency'))}}</p>
+                <p class="text-muted">You can request new confirmation message every {{config('bitmessage.confirmation_msg_frequency')}} {{ Illuminate\Support\Str::plural('second',config('bitmessage.confirmation_msg_frequency'))}}</p>
             @else
                 <button type="submit" class="btn btn-outline-primary">Send confirmation message</button>
             @endif

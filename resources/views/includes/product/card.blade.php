@@ -1,18 +1,21 @@
 
 	    <figure class="card card-product-grid card-lgi" style="overflow:hidden"> 
 			<a href="{{ route('product.show', $product) }}" class="img-wrap" data-abc="true">
-				<img loading="lazy" class="card-img-top" src="{{ asset('storage/'  . $product->frontImage()->image) }}" alt="{{ $product->name }}">
+				@php 
+					$image = preg_replace('/\..+$/', '.webp', $product->frontImage()->image);
+				@endphp
+				<img loading="lazy" class="card-img-top" src="{{ asset('storage/'  . $image) }}" alt="{{ $product->name }}">
 			</a>
                 	
 			<figcaption class="info-wrap">
 				<div class="row">
 					<div class="col-md-12"> 
-						<a href="{{ route('product.show', $product) }}" class="title" data-abc="true">{{ $product -> name }}</a> 
+						<a href="{{ route('product.show', $product) }}" class="title" data-abc="true">{{ $product->name }}</a> 
 					</div>
 					<div class="col-md-12">
-						Posted by <a href="{{ route('vendor.show', $product -> user) }}" class="badge badge-info">{{ $product -> user -> username }}</a>
+						Posted by <a href="{{ route('vendor.show', $product -> user) }}" class="badge badge-info">{{ $product->user->username }}</a>
 							<div class="row">
-								<div class="col-md-12 rating text-left"> <strong>{{ $product -> quantity }}</strong> left </div>
+								<div class="col-md-12 rating text-left"> <strong>{{ $product->quantity }}</strong> left </div>
 								<div class="col-md-12 rating text-right"> @include('includes.purchases.stars', ['stars' => (int)$product->avgRate('quality_rate')]) </div> 
 							</div>
 					</div>

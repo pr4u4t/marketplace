@@ -62,16 +62,16 @@ class CurrencyConverter
             return config('app.currency');
         }
 
-        $user = auth()->user();
-        if ($user == null) {
-            return config('app.currency');
-        }
+        //$user = auth()->user();
+        //if ($user == null) {
+        //    return config('app.currency');
+        //}
 
         if (session()->has('local_currency') and !empty(session()->get('local_currency'))){
             return session()->get('local_currency');
         }
 
-        if(!empty($user->currency)){
+        if(($user = auth()->user()) && !empty($user->currency)){
         	session()->put('local_currency',$user->currency);
        		return session()->get('local_currency');
         }

@@ -5,15 +5,13 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use App\Marketplace\Utility\Captcha as UtilityCaptcha;
 
-class Captcha implements Rule
-{
+class Captcha implements Rule{
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         //
     }
 
@@ -24,8 +22,7 @@ class Captcha implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
-    {
+    public function passes($attribute, $value){
         return UtilityCaptcha::verify($value);
     }
 
@@ -34,8 +31,7 @@ class Captcha implements Rule
      *
      * @return string
      */
-    public function message()
-    {
+    public function message(){
         return 'Invalid Captcha';
     }
 }

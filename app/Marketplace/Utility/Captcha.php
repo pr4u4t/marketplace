@@ -8,11 +8,9 @@ use Gregwar\Captcha\CaptchaBuilder;
 /**
  * Creating and Verifying Captcha
  */
-class Captcha
-{
+class Captcha{
 
-    public static function Build()
-    {
+    public static function Build(){
 
         $width = 200;
         $height = 50;
@@ -20,16 +18,14 @@ class Captcha
         $builder =  new CaptchaBuilder($char_number);
         $builder->build($width,$height);
         session()->put('captcha',$builder->getPhrase());
+        
         return $builder->inline();
     }
-    public static function Verify($input)
-    {
-        if (!session()->has('captcha')) {
-            return false;
-        }
-        if (session()->get('captcha') !== $input) {
-            return false;
-        }
-        return true;
+    
+    public static function Verify($input){
+        return (
+            !session()->has('captcha') 
+            || session()->get('captcha') == $input
+        ) ? false : true; 
     }
 }

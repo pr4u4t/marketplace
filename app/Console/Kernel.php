@@ -25,18 +25,21 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
+    protected function schedule(Schedule $schedule){
         // Schedule to delete old messages every old days
-        $schedule -> command(DeleteOldMessages::class, ['days' => config('marketplace.days_old_messages')])
-                    ->days(config('marketplace.days_old_messages'));
+        $schedule->command(DeleteOldMessages::class, ['days' => config('marketplace.days_old_messages')])
+		->cron('0 0 */'.config('marketplace.days_old_messages').' * *');
+		//->days(config('marketplace.days_old_messages'));
 
         // Make the command for releasing purchases runs each X days
-        $schedule -> command(ReleasePurchasesCommand::class, ['days' => config('marketplace.days_old_purchases')])
-                    ->days(config('marketplace.days_old_purchases'));
+        $schedule->command(ReleasePurchasesCommand::class, ['days' => config('marketplace.days_old_purchases')])
+		->cron('0 0 */'.config('marketplace.days_old_purchases').' * *');
+		//->days(config('marketplace.days_old_purchases'));
 
         // Run completing command for purchases every defined number of days
-        $schedule -> command(CompletePurchaseCommand::class) -> days(config('marketplace.days_complete'));
+	$schedule->command(CompletePurchaseCommand::class)
+		->cron('0 0 */'.config('marketplace.days_complete').' * *');       
+       	       	//-> days(config('marketplace.days_complete'));
 
     }
 
@@ -45,8 +48,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
-    {
+    protected function commands(){
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');

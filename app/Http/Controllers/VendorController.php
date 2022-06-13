@@ -40,10 +40,11 @@ class VendorController extends Controller
      */
     public function vendor(){
         return view('profile.vendor',[
-                'myProducts'    => auth()->user()->products()->paginate(config('marketplace.products_per_page')),
-                'vendor'        => auth()->user()->vendor,
-                'xmpp'          => config('app.xmpp'),
-                'mail'          => config('app.email')    
+            'myProducts'    => auth()->user()->products()->paginate(config('marketplace.products_per_page')),
+            'vendor'        => auth()->user()->vendor,
+            'xmpp'          => config('app.xmpp'),
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 
@@ -63,7 +64,8 @@ class VendorController extends Controller
             'allCategories' => Category::nameOrdered(),
             'basicProduct'  => session('product_adding'),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 
@@ -110,10 +112,11 @@ class VendorController extends Controller
      */
     public function addOffersShow(){
         return view('profile.vendor.addoffers',[
-                'productsOffers'    => session('product_offers'),
-                'basicProduct'      => null,
-                'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email')
+            'productsOffers'    => session('product_offers'),
+            'basicProduct'      => null,
+            'xmpp'              => config('app.xmpp'),
+            'mail'              => config('app.email'),
+            'roots'             => Category::roots()
         ]);
     }
 
@@ -162,18 +165,18 @@ class VendorController extends Controller
 
                 $offers = session('product_offers') ?? collect();
 
-                $offers = $offers -> reject(function($offer, $keys) use($quantity){
-                    return $offer -> quantity != $quantity;
+                $offers = $offers->reject(function($offer, $keys) use($quantity){
+                    return $offer->quantity != $quantity;
                 });
 
-                session() -> put('product_offers', $offers);
+                session()->put('product_offers', $offers);
             }
         }
         catch (RequestException $e){
-            session() -> flash('errormessage', $e -> getMessage());
+            session()->flash('errormessage', $e -> getMessage());
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -191,7 +194,8 @@ class VendorController extends Controller
                 'physicalProduct'   => $physicalProduct ?? new PhysicalProduct,
                 'productsShipping'  => session('product_shippings'),
                 'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email')    
+                'mail'              => config('app.email'),
+                'roots'             => Category::roots()
         ]);
     }
 
@@ -202,17 +206,17 @@ class VendorController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function newShipping(NewShippingRequest $request, Product $product = null){
-        $this -> authorizeEditOrCreate($product);
+        $this->authorizeEditOrCreate($product);
 
         try{
-            $request -> persist($product);
-            session() -> flash('success', 'You have added shipping options!');
+            $request->persist($product);
+            session()->flash('success', 'You have added shipping options!');
         }
         catch (RequestException $e){
-            session() -> flash('errormessage', $e -> getMessage());
+            session()->flash('errormessage', $e->getMessage());
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -222,36 +226,36 @@ class VendorController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removeShipping($index, Product $product = null){
-        $this -> authorizeEditOrCreate($product);
+        $this->authorizeEditOrCreate($product);
 
         try{
             // changeing product
             if($product && $product -> exists()){
-                if($product -> specificProduct() -> shippings() -> count() <= 1)
+                if($product->specificProduct()->shippings()->count() <= 1)
                     throw new RequestException('You must have at least one delivery option!');
 
-                $product -> specificProduct() -> shippings() -> where('id', $index) -> update(['deleted' => 1]);
-                session() -> flash('success', 'You have removed selected shipping!');
+                $product->specificProduct()->shippings()->where('id', $index)->update(['deleted' => 1]);
+                session()->flash('success', 'You have removed selected shipping!');
             }
             // for new product
             else{
                 $shippingsArray =  session('product_shippings') ?? [];
                 $shippingsCollection = collect();
                 foreach ($shippingsArray as $ship){
-                    $shippingsCollection -> push($ship);
+                    $shippingsCollection->push($ship);
                 }
-                $shippingsCollection = $shippingsCollection -> reject(function($shipping, $key) use($index){
+                $shippingsCollection = $shippingsCollection->reject(function($shipping, $key) use($index){
                     return $index == $key;
                 });
 
-                session() -> put('product_shippings', $shippingsCollection);
+                session()->put('product_shippings', $shippingsCollection);
             }
         }
         catch (RequestException $e){
 
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -279,10 +283,11 @@ class VendorController extends Controller
      */
     public function addDigitalShow(){
         return view('profile.vendor.adddigital',[
-                'digitalProduct'    => session('product_details') ?? new DigitalProduct(),
-                'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email')
-            ]);
+            'digitalProduct'    => session('product_details') ?? new DigitalProduct(),
+            'xmpp'              => config('app.xmpp'),
+            'mail'              => config('app.email'),
+            'roots'             => Category::roots()
+        ]);
     }
 
     /**
@@ -293,16 +298,16 @@ class VendorController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function addDigital(NewDigitalRequest $request, DigitalProduct $product = null){
-        $this -> authorizeEditOrCreate(optional($product) -> product);
+        $this->authorizeEditOrCreate(optional($product)->product);
 
         try{
-            return $request -> persist($product);
+            return $request->persist($product);
         }
         catch (RequestException $e){
-            session() -> flash('errormessage', $e -> getMessage());
+            session()->flash('errormessage', $e -> getMessage());
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -314,11 +319,12 @@ class VendorController extends Controller
     {
 
         return view('profile.vendor.addimages',[
-                'basicProduct'      => null,
-                'productsImages'    => session('product_images'),
-                'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email')
-            ]);
+            'basicProduct'      => null,
+            'productsImages'    => session('product_images'),
+            'xmpp'              => config('app.xmpp'),
+            'mail'              => config('app.email'),
+            'roots'             => Category::roots()
+        ]);
     }
 
     /**
@@ -329,17 +335,17 @@ class VendorController extends Controller
      */
     public function addImage(NewImageRequest $request, Product $product = null)
     {
-        $this -> authorizeEditOrCreate($product);
+        $this->authorizeEditOrCreate($product);
 
         try{
-            $request -> persist($product);
-            session() -> flash('success', 'You have added new image!');
+            $request->persist($product);
+            session()->flash('success', 'You have added new image!');
         }
         catch (RequestException $e){
-            session() -> flash('errormessage', $e -> getMessage());
+            session()->flash('errormessage', $e -> getMessage());
         }
 
-        return redirect() -> back();
+        return redirect()->back();
     }
 
     /**
@@ -480,7 +486,8 @@ class VendorController extends Controller
         return view('profile.product.confirmdelete', [
             'product' => $product,
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -496,8 +503,8 @@ class VendorController extends Controller
         $productToDelete = Product::findOrFail($id);
         $productToDelete -> deactivate();
 
-        session() -> flash('success', 'You have successfully deleted product!');
-        return redirect() -> route('profile.vendor');
+        session()->flash('success', 'You have successfully deleted product!');
+        return redirect()->route('profile.vendor');
     }
 
 
@@ -509,59 +516,71 @@ class VendorController extends Controller
      * @return \Illuminate\Http\RedirectResponse|mixed
      *
      */
-    public function editProduct($id, $section = 'basic')
-    {
-        $myProduct = auth() -> user() -> products() -> where('id', $id) -> first();
+    public function editProduct($id, $section = 'basic'){
+        $myProduct = auth()->user()->products()->where('id', $id)->first();
         $this -> authorize('update', $myProduct);
 
 
         // if product is not vendor's
         if($myProduct == null)
-            return redirect() -> route('profile.vendor');
+            return redirect()->route('profile.vendor');
 
         // digital product cant have delivery section
-        if($myProduct -> isDigital() && $section == 'delivery')
-            return redirect() -> route('profile.vendor');
+        if($myProduct->isDigital() && $section == 'delivery')
+            return redirect()->route('profile.vendor');
 
         // physical product cant have digtial section
-        if($myProduct -> isPhysical() && $section == 'digital')
-            return redirect() -> route('profile.vendor');
+        if($myProduct->isPhysical() && $section == 'digital')
+            return redirect()->route('profile.vendor');
 
         // set product type section
-        session() -> put('product_type', $myProduct -> type);
+        session()->put('product_type', $myProduct->type);
 
         // string to view map to retrive which view
         $sectionMap = [
             'basic' =>
-                view('profile.vendor.addbasic',
-                    [
-                        'type' => $myProduct -> type,
-                        'allCategories' => Category::nameOrdered(),
-                        'basicProduct' => $myProduct,]),
+                view('profile.vendor.addbasic',[
+                    'type'          => $myProduct -> type,
+                    'allCategories' => Category::nameOrdered(),
+		    'basicProduct'  => $myProduct,
+		    'xmpp'          => config('app.xmpp'),
+            	    'mail'          => config('app.email'),
+                    'roots'         => Category::roots()
+                ]),
             'offers' =>
-                view('profile.vendor.addoffers',
-                    [
-                        'basicProduct' => $myProduct,
-                        'productsOffers' => $myProduct -> offers() -> get()
-                    ]),
+                view('profile.vendor.addoffers',[
+                    'basicProduct'      => $myProduct,
+		    'productsOffers'    => $myProduct->offers()->get(),
+		    'xmpp'              => config('app.xmpp'),
+            	    'mail'              => config('app.email'),
+            	    'roots'             => Category::roots()
+                ]),
             'images' =>
-                view('profile.vendor.addimages',
-                    [
-                        'basicProduct' => $myProduct,
-                        'productsImages' => $myProduct -> images() -> get(),
-                    ]),
+                view('profile.vendor.addimages',[
+                    'basicProduct'      => $myProduct,
+		    'productsImages'    => $myProduct->images()->get(),
+		    'xmpp'              => config('app.xmpp'),
+            	    'mail'              => config('app.email'),
+            	    'roots'             => Category::roots()
+                ]),
             'delivery' =>
                 view('profile.vendor.adddelivery', [
-                    'productsShipping' => $myProduct -> isPhysical() ? $myProduct -> specificProduct() -> shippings() -> get() : null,
-                    'physicalProduct' => $myProduct -> specificProduct(),
-                    'basicProduct' => $myProduct,
+                    'productsShipping'  => $myProduct->isPhysical() ? 
+                                            $myProduct->specificProduct()->shippings()->get() : null,
+                    'physicalProduct'   => $myProduct->specificProduct(),
+		    'basicProduct'      => $myProduct,
+		    'xmpp'              => config('app.xmpp'),
+            	    'mail'              => config('app.email'),
+            	    'roots'             => Category::roots()
                 ]),
             'digital' =>
                 view('profile.vendor.adddigital', [
-                    'digitalProduct' => $myProduct -> specificProduct(),
-                    'basicProduct' => $myProduct,
+                    'digitalProduct'    => $myProduct->specificProduct(),
+		    'basicProduct'      => $myProduct,
+		    'xmpp'              => config('app.xmpp'),
+            	    'mail'              => config('app.email'),
+            	    'roots'             => Category::roots()
                 ]),
-
         ];
 
         // if the section is not allowed strings
@@ -574,8 +593,7 @@ class VendorController extends Controller
     /**
      * Table with the sales
      */
-    public function sales($state = '')
-    {
+    public function sales($state = ''){
         $sales = auth() -> user() -> vendor -> sales() -> with('offer') -> paginate(20);
         if(array_key_exists($state, Purchase::$states))
             $sales = auth() -> user() -> vendor -> sales() -> where('state', $state) -> paginate(20);
@@ -587,7 +605,8 @@ class VendorController extends Controller
             'sales'     => $sales,
             'state'     => $state,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -605,7 +624,8 @@ class VendorController extends Controller
         return view('profile.vendor.sale', [
             'purchase'  => $sale,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -621,7 +641,8 @@ class VendorController extends Controller
             'backRoute' => redirect()->back()->getTargetUrl(),
             'sale'      => $sale,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class SignInRequest extends FormRequest {
 
@@ -66,9 +67,9 @@ class SignInRequest extends FormRequest {
             return redirect()->route('home');
         }
 
-        $validationString = str_random(10);
+        $validationString = Str::random(10);
         $messageToEncrypt = "To verify login please copy validation string to the matching field.\nValidation string:" . $validationString;
-        $encryptedMessage = PGP::EncryptMessage($messageToEncrypt, $user -> pgp_key);
+        $encryptedMessage = PGP::EncryptMessage($messageToEncrypt, $user->pgp_key);
 
         // save to sessions
         session()->put('login_validation_string', bcrypt($validationString));

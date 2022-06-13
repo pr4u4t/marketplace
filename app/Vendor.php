@@ -200,13 +200,21 @@ class Vendor extends User
      */
     public function getProfileBg(){
         if ($this->profilebg == null){
-            $this->profilebg = array_random(config('vendor.profile_bgs'));
+            $this->profilebg = array_rand(config('vendor.profile_bgs'));
             $this->save();
         }
 
         return $this->profilebg;
     }
 
+    public static function newestVendors(){
+        return Cache::remember('vendors:newest',600,function(){
+            return Vendor::where('active',true)->limit(4)->get();
+        });
+        
+        return Vendor::where('active',true)->limit(4)->get();
+    }
+    
     /**
      * Vendors with most sales all time
      * @return mixed
@@ -218,7 +226,7 @@ class Vendor extends User
                 ->select('vendors.*', DB::raw('COUNT(purchases.id) as purchases_count')) // Avoid selecting everything from the stocks table
                 ->orderBy('purchases_count', 'DESC')
                 ->groupBy('vendors.id')
-                ->limit(5)
+                ->limit(4)
                 ->get();
         });
         
@@ -236,7 +244,7 @@ class Vendor extends User
                 ->orderBy('purchases_count', 'DESC')
                 ->groupBy('vendors.id')
                 ->where('vendors.created_at','>=',Carbon::now()->subDays(7))
-                ->limit(5)
+                ->limit(4)
                 ->get();
         });
         

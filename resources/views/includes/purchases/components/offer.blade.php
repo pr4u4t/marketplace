@@ -4,7 +4,7 @@
         <tr>
             <td>Purchased amount:</td>
             <td>
-                <span class="badge badge-primary">{{ $purchase -> quantity }} {{ str_plural($purchase -> offer -> product -> mesure, $purchase -> quantity) }}</span>
+                <span class="badge badge-primary">{{ $purchase -> quantity }} {{ Illuminate\Support\Str::plural($purchase -> offer -> product -> mesure, $purchase -> quantity) }}</span>
             </td>
         </tr>
         <tr>

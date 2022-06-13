@@ -42,7 +42,8 @@ class ProductController extends Controller{
         return view('admin.products')->with([
             'products'  => $products,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
     public function productsPost(Request $request){
@@ -51,7 +52,7 @@ class ProductController extends Controller{
         return redirect()->route('admin.products',[
             'order_by'  => $request->order_by,
             'user'      => $request->user,
-            'product'   => $request -> product
+            'product'   => $request->product
         ]);
     }
 
@@ -62,7 +63,7 @@ class ProductController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteProduct(DeleteProductRequest $request){
-        $this -> checkProducts();
+        $this->checkProducts();
 
         try{
             $request->persist();
@@ -70,6 +71,7 @@ class ProductController extends Controller{
             Log::warning($e);
             $e->flashError();
         }
+        
         return redirect()->back();
     }
 
@@ -111,21 +113,24 @@ class ProductController extends Controller{
                         'allCategories' => Category::nameOrdered(),
                         'basicProduct'  => $myProduct,
                         'xmpp'          => config('app.xmpp'),
-                        'mail'          => config('app.email')
+                        'mail'          => config('app.email'),
+                        'roots'         => Category::roots()
                 ]),
             'offers' =>
                 view('admin.product.offers',[
                         'basicProduct'      => $myProduct,
                         'productsOffers'    => $myProduct -> offers() -> get(),
                         'xmpp'              => config('app.xmpp'),
-                        'mail'              => config('app.email')
+                        'mail'              => config('app.email'),
+                        'roots'             => Category::roots()
                 ]),
             'images' =>
                 view('admin.product.images',[
                         'basicProduct'      => $myProduct,
                         'productsImages'    => $myProduct->images()->get(),
                         'xmpp'              => config('app.xmpp'),
-                        'mail'              => config('app.email')
+                        'mail'              => config('app.email'),
+                        'roots'             => Category::roots()
                 ]),
             'delivery' =>
                 view('admin.product.delivery', [
@@ -133,14 +138,16 @@ class ProductController extends Controller{
                     'physicalProduct'   => $myProduct-> specificProduct(),
                     'basicProduct'      => $myProduct,
                      'xmpp'             => config('app.xmpp'),
-                     'mail'             => config('app.email')
+                     'mail'             => config('app.email'),
+                     'roots'            => Category::roots()
                 ]),
             'digital' =>
                 view('admin.product.digital', [
                     'digitalProduct'    => $myProduct -> specificProduct(),
                     'basicProduct'      => $myProduct,
                     'xmpp'              => config('app.xmpp'),
-                    'mail'              => config('app.email')
+                    'mail'              => config('app.email'),
+                    'roots'             => Category::roots()
                 ]),
 
         ];
@@ -161,7 +168,8 @@ class ProductController extends Controller{
         return view('admin.purchases', [
             'purchases' => Purchase::orderByDesc('created_at')->paginate(config('marketplace.products_per_page')),
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')        
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
     
@@ -172,7 +180,8 @@ class ProductController extends Controller{
         return view('admin.featuredproducts')->with([
             'products'  => $products,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
     /**
@@ -182,7 +191,7 @@ class ProductController extends Controller{
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removeFromFeatured(RemoveProductFromFeaturedReuqest $request){
-        $this -> checkProducts();
+        $this->checkProducts();
 
         try{
             $request->persist();

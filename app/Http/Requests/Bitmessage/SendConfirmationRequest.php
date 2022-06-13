@@ -6,16 +6,15 @@ use App\Exceptions\RequestException;
 use App\Marketplace\Bitmessage\Bitmessage;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
-class SendConfirmationRequest extends FormRequest
-{
+class SendConfirmationRequest extends FormRequest{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize(){
         return auth()->check();
     }
 
@@ -24,8 +23,7 @@ class SendConfirmationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
         return [
             'address' => 'required'
         ];
@@ -48,15 +46,15 @@ class SendConfirmationRequest extends FormRequest
             $validTime = config('bitmessage.confirmation_msg_frequency');
 
             if ($time->diffInSeconds(Carbon::now()) < $validTime){
-                throw new RequestException("You can request new code every {$validTime} ".str_plural('second',$validTime));
+                throw new RequestException("You can request new code every {$validTime} ".Str::plural('second',$validTime));
                 return;
             }
         }
 
-        $confirmationCode = strtoupper(str_random(8));
-        $subject = config('app.name').' Bitmessage Address Verification #'.strtoupper(str_random(5));
+        $confirmationCode = strtoupper(Str::random(8));
+        $subject = config('app.name').' Bitmessage Address Verification #'.strtoupper(Str::random(5));
         $validTime = config('bitmessage.confirmation_valid_time');
-        $minute = str_plural('minute',$validTime);
+        $minute = Str::plural('minute',$validTime);
         $message = "Confirmation code: {$confirmationCode} . Code will be valid for {$validTime} {$minute}";
         try{
             $bitmessage->sendMessage($this->address,$marketAddress,$subject,$message);

@@ -18,7 +18,7 @@
                 <td>{{ $shipping -> name }}</td>
                 <td>{{ $shipping -> duration }}</td>
                 <td>@include('includes.currency', ['value' => $shipping->price ])</td>
-                <td>{{ $shipping -> from_quantity }} to {{ $shipping -> to_quantity }} {{ str_plural($product -> mesure) }}</td>
+                <td>{{ $shipping -> from_quantity }} to {{ $shipping -> to_quantity }} {{ Illuminate\Support\Str::plural($product -> mesure) }}</td>
             </tr>
             @endforeach
         </tbody>

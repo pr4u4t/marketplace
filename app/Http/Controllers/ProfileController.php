@@ -51,7 +51,8 @@ class ProfileController extends Controller{
     public function index(){
         return view('profile.index',[
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -70,7 +71,8 @@ class ProfileController extends Controller{
         return view('profile.banned', [
             'until'     => $until,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -82,7 +84,8 @@ class ProfileController extends Controller{
     public function pgp(){
         return view('profile.pgp', [
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -111,7 +114,8 @@ class ProfileController extends Controller{
     public function pgpConfirm(){
         return view('profile.confirmpgp',[
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -144,7 +148,8 @@ class ProfileController extends Controller{
         return view('profile.oldpgp',[
                 'keys'      => auth()->user()->pgpKeys()->orderByDesc('created_at')->get(),
                 'xmpp'      => config('app.xmpp'),
-                'mail'      => config('app.email')
+                'mail'      => config('app.email'),
+                'roots'     => Category::roots()
             ]
         );
     }
@@ -203,7 +208,8 @@ class ProfileController extends Controller{
             'vendorFee'         => config('marketplace.vendor_fee'),
             'depositAddresses'  => auth()->user()->vendorPurchases,
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email')
+            'mail'              => config('app.email'),
+            'roots'             => Category::roots()
         ]);
     }
 
@@ -260,7 +266,8 @@ class ProfileController extends Controller{
     public function wishlist(){
         return view('profile.wishlist',[
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -275,7 +282,8 @@ class ProfileController extends Controller{
             'numberOfItems' => Cart::getCart()->numberOfItems(),
             'totalSum'      => Cart::getCart() -> total(),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 
@@ -336,7 +344,8 @@ class ProfileController extends Controller{
             'totalSum'      => Cart::getCart()->total(),
             'numberOfItems' => Cart::getCart()->numberOfItems(),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 
@@ -373,7 +382,8 @@ class ProfileController extends Controller{
             'purchases' => $purchases,
             'state'     => $state,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -385,9 +395,10 @@ class ProfileController extends Controller{
      */
     public function purchaseMessage(Purchase $purchase){
         return view('profile.purchases.viewmessage', [
-            'purchase' => $purchase,
+            'purchase'  => $purchase,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -401,7 +412,8 @@ class ProfileController extends Controller{
         return view('profile.purchases.purchase', [
             'purchase'  => $purchase,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -416,7 +428,8 @@ class ProfileController extends Controller{
             'backRoute' => redirect() -> back()->getTargetUrl(),
             'purchase'  => $purchase,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -448,7 +461,8 @@ class ProfileController extends Controller{
             'backRoute' => redirect()->back()->getTargetUrl(),
             'sale'      => $purchase,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -592,7 +606,8 @@ class ProfileController extends Controller{
             'replies'   => $replies,
             'ticket'    => $ticket,
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -625,8 +640,11 @@ class ProfileController extends Controller{
         return redirect()->back();
     }
     
-    public function updateContact(){
-        
+    public function contactUpdate(){
         return redirect()->back();
+    }
+
+    public function avatarUpdate(){
+    	return redirect()->back();
     }
 }

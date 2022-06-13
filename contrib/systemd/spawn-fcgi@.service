@@ -1,0 +1,15 @@
+[Unit]
+Description=PHP 7.2 fastcgi spawn
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/spawnfcgi/market
+StandardOutput=null
+StandardError=syslog
+ExecStart=/usr/bin/spawn-fcgi -d ${DIR} -a ${ADDRESS} -p ${PORT} -U www-data -G www-data -u ${USER} -g ${GROUP} -C ${CHILDREN} -n -- /usr/bin/php-cgi7.3 
+
+[Install]
+WantedBy=multi-user.target
+

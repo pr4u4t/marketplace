@@ -1,5 +1,15 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'          => '/',
+        'Admin'         => route('admin.index'),
+        'Categories'    => route('admin.categories')
+    ]
+])
+@endsection
+
 @section('admin-content')
 
     @include('includes.flash.success')
@@ -17,28 +27,9 @@
             @endif
         </div>
         <div class="col-md-6">
-            <h4>Add new category</h4>
-            <hr>
-            <form action="{{ route('admin.categories.new') }}"  method="POST">
-                {{ csrf_field() }}
-                <label for="name">Name:</label>
-                <input id="name" name="name" placeholder="Category name" class="form-control mb-3 @error('name', $errors) is-invalid @enderror"/>
-                <label for="weight">Weight:</label>
-                <input name="weight" type="number" step="1" placeholder="0" class="form-control mb-3 @error('name', $errors) is-invalid @enderror"/>
-                @error('name', $errors)
-                <div class="invalid-feedback d-block">{{ $errors -> first('name') }}</div>
-                @enderror
-                <label for="parent_id">Parent category:</label>
-                <select name="parent_id" class="form-control mb-3" id="parent_id">
-                    <option value="" selected>No parent category</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-                <button class="btn btn-outline-success d-flex float-right" type="submit">Add category</button>
-            </form>
+            @include('includes.admin.add_category', [
+                'categories' => $categories   
+            ])
         </div>
     </div>
-
-
 @stop

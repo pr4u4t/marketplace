@@ -1,7 +1,7 @@
 <h3 class="mt-3">My products</h3>
 <hr>
 
-@if(auth() -> user() -> products -> isNotEmpty())
+@if(auth()->user()->products->isNotEmpty())
 
     <table class="table table-hover table-striped">
         <thead>
@@ -20,16 +20,16 @@
                     <td><a href="{{ route('product.show', $product) }}">{{ $product->name }}</a></td>
                     <td class="text-right">{{ $product->quantity }}</td>
                     <td class="text-right">@include('includes.currency', ['value' => $product->price_from ])</td>
-                    <td><a href="{{ route('category.show', $product -> category) }}">{{ $product->category->name }}</a></td>
+                    <td><a href="{{ route('market.category.show', $product->category) }}">{{ $product->category->name }}</a></td>
                     <td><span class="badge badge-primary">{{ $product->isDigital() ? 'Digital' : 'Physical' }}</span></td>
                     <td class="text-right">
                         <a href="{{ route('profile.vendor.product.clone.show', $product ) }}" class="btn btn-sm btn-info">
                             Clone
                         </a>
-                        <a href="{{ route('profile.vendor.product.edit', $product -> id) }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('profile.vendor.product.edit', $product->id) }}" class="btn btn-sm btn-primary">
                             <i class="far fa-edit"></i>
                         </a>
-                        <a href="{{ route('profile.vendor.product.remove.confirm', $product -> id) }}" class="btn btn-sm btn-danger">
+                        <a href="{{ route('profile.vendor.product.remove.confirm', $product->id) }}" class="btn btn-sm btn-danger">
                             <i class="fa fa-trash"></i>
                         </a>
 

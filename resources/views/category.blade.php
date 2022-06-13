@@ -11,12 +11,12 @@
         
         if(isset($parents)){
             foreach($parents as $parent){
-                $crumbs += [ $parent->name => route('category.show', $parent) ];
+                $crumbs += [ $parent->name => route('market.category.show', $parent) ];
             }
         }
         
         if(isset($category)){
-            $crumbs += [ $category->name => route('category.show', $category) ];
+            $crumbs += [ $category->name => route('market.category.show', $category) ];
         }
         
     @endphp

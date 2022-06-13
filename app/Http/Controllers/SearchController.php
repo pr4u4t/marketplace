@@ -31,13 +31,13 @@ class SearchController extends Controller
             $orderBy = $request->order_by;
         }
         return redirect()->route('search.show', [
-            'query' => $searchQuery,
-            'category' => $request->category,
-            'type' => $request->product_type,
+            'query'     => $searchQuery,
+            'category'  => $request->category,
+            'type'      => $request->product_type,
             'price_min' => $request->minimum_price,
             'price_max' => $request->maximum_price,
-            'user' => $request->user,
-            'order_by' => $orderBy,
+            'user'      => $request->user,
+            'order_by'  => $orderBy,
         ]);
     }
 
@@ -97,14 +97,15 @@ class SearchController extends Controller
         $end = round($end, 5);
 
         return view('results', [
-            'productsView'  => session() -> get('products_view'),
+            'productsView'  => session()->get('products_view'),
             'products'      => $finalResult,
             'categories'    => Category::roots(),
             'query'         => $searchQuery,
             'time'          => $end,
             'results_count' => $results->count(),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
 

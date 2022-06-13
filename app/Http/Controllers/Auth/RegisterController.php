@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Category;
 
 class RegisterController extends Controller {
 
@@ -21,7 +22,8 @@ class RegisterController extends Controller {
             'refid'     => $refid,
             'captcha'   => Captcha::Build(),
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 
@@ -55,7 +57,8 @@ class RegisterController extends Controller {
         return view('auth.mnemonic')->with([
             'mnemonic'  => session()->get('mnemonic_key'),
             'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email')
+            'mail'      => config('app.email'),
+            'roots'     => Category::roots()
         ]);
     }
 }

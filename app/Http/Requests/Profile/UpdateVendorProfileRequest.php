@@ -25,13 +25,13 @@ class UpdateVendorProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'max:120',
+            'description' => 'max:1024',
         ];
     }
 
     public function messages(){
         return [
-            'description.max' => 'Description cannot be longer than 120 characters'
+            'description.max' => 'Description cannot be longer than 1024 characters'
         ];
     }
     public function persist(){
@@ -39,7 +39,7 @@ class UpdateVendorProfileRequest extends FormRequest
         $pofile_bgs = config('vendor.profile_bgs');
         $bg =$this->profilebg;
         if ($bg == null){
-            $bg = array_random($pofile_bgs);
+            $bg = array_rand($pofile_bgs);
         } else {
             $bg = $pofile_bgs[$bg];
         }

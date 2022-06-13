@@ -1,5 +1,14 @@
 @extends('master.profile')
 
+@section('profile-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'        => '/',
+        'Profile'     => route('profile.index')
+    ]
+])
+@endsection
+
 @section('profile-content')
     @include('includes.flash.error')
     @include('includes.flash.success')
@@ -8,9 +17,27 @@
 
     <h3 class="mt-4">Avatar</h3>
     <hr>
-    <form action="{{ route('profile.avatar.post') }}" method="post">
-        {{csrf_field()}}
     
+    <img src="/default-avatar-600x600.png" class="rounded-circle" style="width: 150px;" alt="Avatar"/>
+    
+    <form class="mt-1" action="{{ route('profile.avatar.post') }}" method="post">
+        {{csrf_field()}}
+        
+        <div class="form-row">
+            <div class="col-md-8">
+                <div class="custom-file">
+                    <input type="file" name="avatar" class="custom-file-input" id="avatar">
+                    <label class="custom-file-label" for="avatar">Select file</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row text-right justify-content-between">
+            <div class="col-md-9 text-left"></div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-success" type="submit">Change avatar</button>
+            </div>
+        </div>
     </form>
     
     <h3 class="mt-4"> Contact information</h3>

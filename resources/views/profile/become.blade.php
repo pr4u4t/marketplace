@@ -1,5 +1,15 @@
 @extends('master.profile')
 
+@section('profile-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'          => '/',
+        'Profile'       => route('profile.index'),
+        'Become Vendor' => route('profile.vendor')
+]
+])
+@endsection
+
 @section('profile-content')
     @include('includes.flash.error')
     @include('includes.flash.success')

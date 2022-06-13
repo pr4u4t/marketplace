@@ -52,7 +52,7 @@ summary::-webkit-details-marker {
   position: absolute;
   will-change: transform;
   transition: transform 300ms ease;
-  font-family:'Font Awesome 5 Free';
+  font-family:'Font Awesome 6 Free';
   color: #000;
   font-size: 1.1rem;
   content: "\f107";
@@ -61,6 +61,7 @@ summary::-webkit-details-marker {
   width: 1.6rem;
   text-align: center;
   transform: rotate(-90deg);
+  font-weight:bold;
 }
 
 .tree-nav__item-title {
@@ -92,14 +93,14 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-nav.tree-nav details.tree-nav__item.is-expandable details.tree-nav__item.is-expandable summary.fa.tree-nav__item-title::after {
+nav.tree-nav details.tree-nav__item.is-expandable details.tree-nav__item.is-expandable summary.tree-nav__item-title::after {
   content: ' ';
   white-space: pre;
   position: absolute;
   left: -0.6em;
   width: 0.8em;
   border-top: 1px dotted #000;
-  top: 1.2em;
+  top: 1.4em;
 }
 
 /* -- carousel --*/
@@ -706,7 +707,7 @@ nav.tree-nav details.tree-nav__item.is-expandable details.tree-nav__item.is-expa
   height:2em;
 }
 .navbar-nav input[type=checkbox] + i{
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 Free';
   color: #000;
   font-size: 1.1rem;
   content: "\f107";
@@ -753,7 +754,7 @@ nav.tree-nav details.tree-nav__item.is-expandable details.tree-nav__item.is-expa
   
   .navbar-nav .nav-link.w-100:after,
   .navbar-nav .nav-item.has-children .nav-node.w-100:after{
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 6 Free';
     color: #000;
     font-size: 1.1rem;
     content: "\f107";
@@ -892,7 +893,7 @@ body.pb-4 .navbar.navbar-dark.fixed-top{
   }
   
   .cats div input[type=checkbox] + i{
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 6 Free';
     color: #000;
     font-size: 1.1rem;
     content: "\f107";
@@ -991,3 +992,42 @@ body.pb-4 .navbar.navbar-dark.fixed-top{
 }
 
 .row.vendors .profile-card { margin-bottom:0; }
+
+.horizon-slider{
+  width: 100%;
+  overflow-x:scroll;
+  height:12em;
+}
+
+.horizon-slider .roll{
+  width:110em;
+  display:flex;
+}
+
+.horizon-slider .roll .col-md-2 {
+  width:8em;
+}
+
+.horizon-slider .roll .col-md-2 .label{
+  height:3em;
+}
+
+@media (min-width:992px){
+  .horizon-slider,.horizon-slider .roll { 
+    height:initial; 
+    overflow-x:initial; 
+    width:initial; 
+    flex-wrap:wrap;
+  }
+  
+  .horizon-slider .roll .col-md-2 { display:initial; }
+}
+
+.horizon-slider,.horizon-slider .roll a,
+.horizon-slider,.horizon-slider .roll a:hover,
+.horizon-slider,.horizon-slider .roll a:active,
+.horizon-slider,.horizon-slider .roll a:visited{
+  text-decoration:none;
+}
+
+.search-block { background:#f3f4f5; }

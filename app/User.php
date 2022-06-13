@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Traits\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Monolog\Logger;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -85,7 +86,7 @@ class User extends Authenticatable
      */
     public static function stub(){
         $stubUser = new User();
-        $stubUser -> username = 'MARKET MESSAGE';
+        $stubUser->username = 'MARKET MESSAGE';
         return $stubUser;
     }
 
@@ -96,12 +97,29 @@ class User extends Authenticatable
      */
     public static function buyers(){
         $allUsers = User::all();
-        $onlyBuyers = $allUsers -> diff(Admin::allUsers());
-        $onlyBuyers = $onlyBuyers -> diff(Vendor::allUsers());
+        $onlyBuyers = $allUsers->diff(Admin::allUsers());
+        $onlyBuyers = $onlyBuyers->diff(Vendor::allUsers());
 
         return $onlyBuyers;
     }
 
+    public static function newestUsers(){
+        return Cache::remember('users:newest',600,function(){
+            return User::where('active',true)->whereNotIn('id',Vendor::all()->pluck('id'))->limit(4)->get();
+        });
+        
+        return self::where('active',true)->whereNotIn('id',Vendor::all()->pluck('id'))->limit(4)->get();
+    }
+    
+    public static function allActive(){
+        $page = (request()->has('page')) ? request()->page : 1;
+        return Cache::remember('users:all:active:'.$page,600,function(){
+            return User::where('active',true)->paginate(12);
+        });
+        
+        return self::where('active',true)->paginate(12);
+    }
+    
     /**
      * Finds user by username
      *

@@ -9,7 +9,9 @@ class ModuleManager
     private static $availableModules = [
         'MultiCurrency',
         'FinalizeEarly',
-        'FeaturedProducts'
+	'FeaturedProducts',
+	'Legals',
+	'Forum'
     ];
 
     public static function isEnabled($module){

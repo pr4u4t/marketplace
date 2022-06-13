@@ -13,6 +13,7 @@ use App\Marketplace\Utility\Captcha;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Category;
 
 class LoginController extends Controller {
     /**
@@ -23,7 +24,8 @@ class LoginController extends Controller {
         return (Auth::check()) ? redirect()->back() : view('auth.signin')->with([
             'captcha' => Captcha::build(),
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
     
@@ -50,7 +52,8 @@ class LoginController extends Controller {
     public function showVerify(){
         return view('auth.verify', [
             'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email')
+            'mail'    => config('app.email'),
+            'roots'   => Category::roots()
         ]);
     }
 
@@ -69,6 +72,4 @@ class LoginController extends Controller {
             return redirect() -> back();
         }
     }
-    
 }
-

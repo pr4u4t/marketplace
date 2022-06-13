@@ -12,7 +12,7 @@
                             <select name="quality_rate" id="quality_rate" class="form-control">
                                 @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}">
-                                        {{ $i }} {{ str_plural('star', $i) }}
+                                        {{ $i }} {{ Illuminate\Support\Str::plural('star', $i) }}
                                     </option>
                                 @endfor
                             </select>
@@ -21,7 +21,7 @@
                             <select name="communication_rate" id="communication_rate" class="form-control">
                                 @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}">
-                                        {{ $i }} {{ str_plural('star', $i) }}
+                                        {{ $i }} {{ Illuminate\Support\Str::plural('star', $i) }}
                                     </option>
                                 @endfor
                             </select>
@@ -29,7 +29,7 @@
                             <select name="shipping_rate" id="shipping_rate" class="form-control">
                                 @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}">
-                                        {{ $i }} {{ str_plural('star', $i) }}
+                                        {{ $i }} {{ Illuminate\Support\Str::plural('star', $i) }}
                                     </option>
                                 @endfor
                             </select>

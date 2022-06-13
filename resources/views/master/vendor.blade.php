@@ -18,7 +18,15 @@
                     @include('includes.vendor.card')
                 </div>
             </div>
+            
             <div class="row justify-content-center" style="margin-top:5em">
+                    <div class="col-md-8">
+                        @include('includes.contact_info')
+                    </div>
+                
+            </div>
+            
+            <div class="row justify-content-center">
                 <div class="col-md-8">
                     <details class="rounded" style="background:#fff; margin-bottom:1em">
                         <summary style="font-weight:bold"> {{ $vendor->username.' PGP Key' }} </summary>
@@ -28,6 +36,7 @@
                     </details>
                 </div>
             </div>
+            
         </div>
     </div>
 

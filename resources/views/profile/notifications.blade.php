@@ -2,6 +2,16 @@
 
 @section('title', 'Notifications')
 
+@section('profile-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'          => '/',
+        'Profile'       => route('profile.index'),
+        'Notifications' => route('profile.notifications')
+    ]
+])
+@endsection
+
 @section('profile-content')
     @include('includes.flash.success')
     @include('includes.flash.error')

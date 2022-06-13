@@ -5,17 +5,17 @@
 <input name="input-slider" id='input-slide-3' type="radio" class='input-slide input-slide-num' >
 <input name="input-slider" id='input-slide-autoplay' type="radio" class='input-slide' checked>
 <ul>
-<li class='slide-0'><img loading="lazy" src="/welcome.webp" style="object-fit:fill"></li>
-<li class='slide-1'><img loading="lazy" src="/offline.webp" style="object-fit:fill"></li>
-<li class='slide-2'><img loading="lazy" src="/discount.webp" style="object-fit:fill"></li> 
-<li class='slide-3'></li>        
+<li class='slide-0' style="width:100%"><img src="/welcome.webp" style="object-fit:fill;"></li>
+<li class='slide-1' style="width:100%"><img loading="lazy" src="/offline.webp" style="object-fit:fill;"></li>
+<li class='slide-2' style="width:100%"><img loading="lazy" src="/discount.webp" style="object-fit:fill;"></li> 
+<li class='slide-3' style="width:100%"><img loading="lazy" src="/ctizeda9vxaz.webp"></li>        
 </ul>
 <div class='slide-description'>
 <label class='slide-0'>
     <div class="col-md-12 col-sm-12 col-lg-8 mt-3" style="margin-right:auto; margin-left:auto;">
         <div class="row">
             <div class="col">
-                <h4 class="col-sm-12 col-md-12 col-lg-10" style="text-align:center; color:#fff">Welcome to No Surrender Market</h4>
+                <h4 class="col-sm-12 col-md-12 col-lg-12" style="text-align:center; color:#fff">Welcome to No Surrender Market</h4>
                 <hr>
             </div>
         </div>
@@ -31,25 +31,15 @@
 </label>
 <label class='slide-1'>
 <!--<h1 class="text-slide">Pure CSS</h1>-->
-    <div class="col-md-6" style="margin:auto">
-        <h4><i style="color:#fff" class="fa fa-shield-alt text-info"></i><span style="color:#fff">No cryptocurrency deposits</span></h4>
-        <p style="color:#fff">
-        Every order has its unique address. Buyers have 24 hours to pay the order and do not have to wait for deposits to arrive.
-        </p>
-    </div>
+    
     <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8" style="margin:auto">
     <h4 style="color:#fff"><i class="fa fa-money-bill-wave-alt text-info"></i> Monero support</h4>
     <p style="color:#fff">
     We support Monero which is secure, private, and untraceable. It is more anonymously then Bitcoin. We recommend all buyers to use Monero.
     </p>
     </div>
-    <div class="col-md-6">
-    <h4 style="color:#fff"><i class="fa fa-coins text-info"></i> No Finalize Early</h4>
-    <p style="color:#fff">
-    We do not support FE or partial escrow releases and we don't have to! The escrow makes it impossible for the site staff or vendors to steal any Bitcoins.
-    </p>
-    </div>
+    
     </div>
 </label>
 <label class='slide-2'>

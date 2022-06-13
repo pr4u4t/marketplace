@@ -1,5 +1,14 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'              => '/',
+        'Admin'             => route('admin.index')
+    ]
+])
+@endsection
+
 @section('admin-content')
 
     <h1 class="mb-3">Market Statistics</h1>

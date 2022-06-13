@@ -1,5 +1,15 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'    => '/',
+        'Admin'   => route('admin.index'),
+        'Log'     => route('admin.log'),
+    ]
+])
+@endsection
+
 @section('admin-content')
     <div class="row">
         <div class="col">
@@ -8,7 +18,7 @@
             </h4>
             <hr>
             <p class="small text-muted">
-                New logs are loaded  @if($cacheMinutes == 0) instantly @else every {{$cacheMinutes}} {{str_plural('minute',$cacheMinutes)}} @endif. You can change this option in configuration.
+                New logs are loaded  @if($cacheMinutes == 0) instantly @else every {{$cacheMinutes}} {{Illuminate\Support\Str::plural('minute',$cacheMinutes)}} @endif. You can change this option in configuration.
             </p>
         </div>
     </div>

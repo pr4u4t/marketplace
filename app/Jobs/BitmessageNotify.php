@@ -72,8 +72,7 @@ class BitmessageNotify implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
-    {
+    public function handle(){
         if ($this->attempts() <= $this->tries){
             $this->bitmessage->sendMessage($this->address,$this->sender,$this->title,$this->content);
         } else {

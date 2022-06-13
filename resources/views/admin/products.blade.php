@@ -1,5 +1,15 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+    @include('includes.breadcrumb',[
+        'breadcrumb' => [
+            'Home'      => '/',
+            'Admin'     => route('admin.index'),
+            'Products'  => route('admin.products')
+        ]
+    ])
+@endsection
+    
 @section('admin-content')
     <div class="row">
         <div class="col">
@@ -113,7 +123,7 @@
                                 @include('featuredproducts::markasfeatured')
                             @endisModuleEnabled
 
-                            <a href="{{ route('admin.product.edit', $product -> id) }}" class="btn btn-outline-mblue">
+                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-outline-mblue">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                             <button type="submit" value="{{$product->id}}" name="product_id"
@@ -123,7 +133,6 @@
                         </td>
                     </tr>
                 @endforeach
-
             @endif
         </form>
 
@@ -133,7 +142,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="text-center">
-                {{$products->links()}}
+               {{ $products->links('includes.paginate') }}
             </div>
         </div>
     </div>

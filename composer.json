@@ -13,27 +13,30 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "defuse/php-encryption": "^2.2",
         "doctrine/dbal": "^2.9",
+        "elasticsearch/elasticsearch": "^7.17",
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.8",
-        "graham-campbell/markdown": "^10.3",
+        "graham-campbell/markdown": "^13.1",
         "gregwar/captcha": "^1.1",
-        "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0",
+        "kalnoy/nestedset": "^6.0",
+        "laravel/framework": "^8.0",
+        "laravel/tinker": "^2.0",
         "nwidart/laravel-modules": "^5.0",
         "paragonie/sodium_compat": "^1.7",
         "phpseclib/phpseclib": "~2.0.4",
         "phpxmlrpc/phpxmlrpc": "^4.3",
         "predis/predis": "^1.1",
+        "riari/laravel-forum": "~5.0",
         "singpolyma/openpgp-php": "^0.3.0",
         "symfony/intl": "^4.2",
-        "tamayo/laravel-scout-elastic": "^4.0",
+        "tamayo/laravel-scout-elastic": "^8.0",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "classmap": [

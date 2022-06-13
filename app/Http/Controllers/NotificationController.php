@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
-class NotificationController extends Controller
-{
+class NotificationController extends Controller{
     /**
      * Now many notifications to display per page
      *
@@ -30,7 +30,8 @@ class NotificationController extends Controller
         return view('profile.notifications')->with([
             'notifications' => $notifications,
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email')
+            'mail'          => config('app.email'),
+            'roots'         => Category::roots()
         ]);
     }
     

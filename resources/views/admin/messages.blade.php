@@ -1,5 +1,15 @@
 @extends('master.admin')
 
+@section('admin-breadcrumb')
+@include('includes.breadcrumb',[
+    'breadcrumb' => [
+        'Home'              => '/',
+        'Admin'             => route('admin.index'),
+        'Mass Messages'     => route('admin.messages.mass'),
+    ]
+])
+@endsection
+
 @section('admin-content')
 
     @include('includes.flash.success')

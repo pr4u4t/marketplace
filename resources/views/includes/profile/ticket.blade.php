@@ -1,6 +1,6 @@
 <h3 class="mb-2">Ticket: {{ $ticket -> title }}</h3>
 <hr>
-@if(!$ticket -> solved)
+@if(!$ticket->solved)
 <form method="POST" action="{{ route('profile.tickets.message.new', $ticket) }}">
     {{ csrf_field() }}
 
