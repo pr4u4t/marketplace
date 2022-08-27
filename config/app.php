@@ -31,7 +31,7 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
-    'google-site' => 'Zj7NLkgIQx5-p-TD46solN8sR_qANXo6ykmWqdtbJkU',
+    'google-site' => env('GOOGLE_VERIFY'),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,13 +122,17 @@ return [
 
     'key' => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher' => env('APP_CIPHER','aes-256-cbc'),
 
     'public' => env('APP_PUBLIC',true),
     
     'xmpp'  => env('ADMIN_XMPP'),
     
     'email' => env('ADMIN_MAIL'),
+
+    'bm'    => env('ADMIN_BM'),
+
+    'footer_title' => env('FOOTER_TITLE'),
     
     /*
     |--------------------------------------------------------------------------

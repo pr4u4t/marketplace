@@ -63,8 +63,10 @@ class AdminController extends Controller
                 'total_spent'           => Purchase::totalSpent(),
                 'total_earnings_coin'   => Purchase::totalEarningPerCoin(),
                 'xmpp'                  => config('app.xmpp'),
-                'mail'                  => config('app.email'),
-                'roots'                 => Category::roots()
+		'mail'                  => config('app.email'),
+		'bm'            	=> config('app.bm'),
+		'roots'                 => Category::roots(),
+		'footer_title'  	=> config('app.footer_title')
             ]
         );
     }
@@ -81,8 +83,10 @@ class AdminController extends Controller
                 'rootCategories'    => Category::adminRoots(),
                 'categories'        => Category::adminNameOrdered(),
                 'xmpp'              => config('app.xmpp'),
-                'mail'              => config('app.email'),
-                'roots'             => Category::roots()
+		'mail'              => config('app.email'),
+		'bm'           	    => config('app.bm'),
+		'roots'             => Category::roots(),
+		'footer_title'      => config('app.footer_title')
             ]
         );
     }
@@ -139,8 +143,10 @@ class AdminController extends Controller
         return view('admin.category', [
             'category'      => $categoryToShow,
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'mail'          => config('app.email'),
+	    'bm'            => config('app.bm'),
+	    'roots'         => Category::roots(),
+	    'footer_title'  => config('app.footer_title')
         ]);
 
     }
@@ -174,9 +180,11 @@ class AdminController extends Controller
         $this->messagesCheck();
 
         return view('admin.messages', [
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -212,7 +220,9 @@ class AdminController extends Controller
             'allDisputes'   => Dispute::paginate(config('marketplace.products_per_page')),
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'roots'         => Category::roots(),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title')
         ]);
     }
 
@@ -246,10 +256,12 @@ class AdminController extends Controller
      */
     public function purchase(Purchase $purchase){
         return view('admin.purchase', [
-            'purchase'  => $purchase,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'purchase'  	=> $purchase,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -260,10 +272,12 @@ class AdminController extends Controller
      */
     public function tickets(){
         return view('admin.tickets', [
-            'tickets' => Ticket::orderByDesc('created_at')->paginate(config('marketplace.posts_per_page')),
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'tickets' 		=> Ticket::orderByDesc('created_at')->paginate(config('marketplace.posts_per_page')),
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -276,11 +290,13 @@ class AdminController extends Controller
      */
     public function viewTicket(Ticket $ticket){
         return view('admin.ticket', [
-            'ticket'    => $ticket,
-            'replies'   => $ticket -> replies()->orderByDesc('created_at')-> paginate(config('marketplace.posts_per_page')),
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'ticket'    	=> $ticket,
+            'replies'   	=> $ticket->replies()->orderByDesc('created_at')->paginate(config('marketplace.posts_per_page')),
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -307,10 +323,12 @@ class AdminController extends Controller
      */
     public function vendorPurchases(){
         return view('admin.vendorpurchases', [
-            'vendors' => Vendor::orderByDesc('created_at')->paginate(24),
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'vendors' 		=> Vendor::orderByDesc('created_at')->paginate(24),
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     
@@ -353,7 +371,9 @@ class AdminController extends Controller
         return view('admin.performance', [
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'roots'         => Category::roots(),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title')
         ]);
         
     }

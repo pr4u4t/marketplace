@@ -20,3 +20,9 @@ run.bat
 storage/
 *.lock
 *.asc
+.cache
+.config
+.lesshst
+.local
+.rediscli_history
+.viminfo

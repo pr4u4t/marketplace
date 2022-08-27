@@ -40,19 +40,22 @@ class ProductController extends Controller{
         $request->persist();
         $products = $request->getProducts();
         return view('admin.products')->with([
-            'products'  => $products,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'products'  	=> $products,
+	    'xmpp'      	=> config('app.xmpp'),
+	    'bm'        	=> config('app.bm'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     public function productsPost(Request $request){
         $this -> checkProducts();
 
         return redirect()->route('admin.products',[
-            'order_by'  => $request->order_by,
-            'user'      => $request->user,
-            'product'   => $request->product
+            'order_by'  	=> $request->order_by,
+            'user'      	=> $request->user,
+	    'product'   	=> $request->product,
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -114,7 +117,9 @@ class ProductController extends Controller{
                         'basicProduct'  => $myProduct,
                         'xmpp'          => config('app.xmpp'),
                         'mail'          => config('app.email'),
-                        'roots'         => Category::roots()
+			'roots'         => Category::roots(),
+			'bm'            => config('app.bm'),
+			'footer_title'  => config('app.footer_title')
                 ]),
             'offers' =>
                 view('admin.product.offers',[
@@ -122,7 +127,9 @@ class ProductController extends Controller{
                         'productsOffers'    => $myProduct -> offers() -> get(),
                         'xmpp'              => config('app.xmpp'),
                         'mail'              => config('app.email'),
-                        'roots'             => Category::roots()
+			'roots'             => Category::roots(),
+			'bm'                => config('app.bm'),
+			'footer_title'      => config('app.footer_title')
                 ]),
             'images' =>
                 view('admin.product.images',[
@@ -130,7 +137,9 @@ class ProductController extends Controller{
                         'productsImages'    => $myProduct->images()->get(),
                         'xmpp'              => config('app.xmpp'),
                         'mail'              => config('app.email'),
-                        'roots'             => Category::roots()
+			'roots'             => Category::roots(),
+			'bm'                => config('app.bm'),
+			'footer_title'      => config('app.footer_title')
                 ]),
             'delivery' =>
                 view('admin.product.delivery', [
@@ -139,7 +148,9 @@ class ProductController extends Controller{
                     'basicProduct'      => $myProduct,
                      'xmpp'             => config('app.xmpp'),
                      'mail'             => config('app.email'),
-                     'roots'            => Category::roots()
+		     'roots'            => Category::roots(),
+		     'bm'            	=> config('app.bm'),
+		     'footer_title'     => config('app.footer_title')
                 ]),
             'digital' =>
                 view('admin.product.digital', [
@@ -147,7 +158,9 @@ class ProductController extends Controller{
                     'basicProduct'      => $myProduct,
                     'xmpp'              => config('app.xmpp'),
                     'mail'              => config('app.email'),
-                    'roots'             => Category::roots()
+		    'roots'             => Category::roots(),
+		    'bm'            	=> config('app.bm')
+		    'footer_title'      => config('app.footer_title')
                 ]),
 
         ];
@@ -166,10 +179,12 @@ class ProductController extends Controller{
      */
     public function purchases(){
         return view('admin.purchases', [
-            'purchases' => Purchase::orderByDesc('created_at')->paginate(config('marketplace.products_per_page')),
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'purchases' 	=> Purchase::orderByDesc('created_at')->paginate(config('marketplace.products_per_page')),
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     
@@ -178,10 +193,12 @@ class ProductController extends Controller{
         $products = Product::where('featured',1)->paginate(25);
 
         return view('admin.featuredproducts')->with([
-            'products'  => $products,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'products'  	=> $products,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     /**

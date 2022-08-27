@@ -19,11 +19,13 @@ class RegisterController extends Controller {
      */
     public function showSignUp($refid = '') {
         return (Auth::check()) ? redirect()->back() : view('auth.signup')->with([
-            'refid'     => $refid,
-            'captcha'   => Captcha::Build(),
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'refid'     	=> $refid,
+            'captcha'   	=> Captcha::Build(),
+            'xmpp'      	=> config('app.xmpp'),
+	    'mail'      	=> config('app.email'),
+	    'bm'        	=> config('app.bm'),
+	    'roots'     	=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -55,10 +57,12 @@ class RegisterController extends Controller {
             return redirect()->route('auth.signin');
         
         return view('auth.mnemonic')->with([
-            'mnemonic'  => session()->get('mnemonic_key'),
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'mnemonic'  	=> session()->get('mnemonic_key'),
+            'xmpp'      	=> config('app.xmpp'),
+	    'mail'      	=> config('app.email'),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
+            'roots'     	=> Category::roots()
         ]);
     }
 }

@@ -36,6 +36,8 @@ class IndexController extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home() {
+	    syslog(LOG_ERR,config('app.footer_title'));
+
         return view('welcome', [
             'productsView'      => session()->get('products_view'),
             'newestProducts'    => Product::frontPage(),
@@ -45,7 +47,9 @@ class IndexController extends Controller{
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'featuredProducts'  => (!ModuleManager::isEnabled('FeaturedProducts')) ? null : FeaturedProducts::get(),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'roots'             => Category::roots(),
             'css_class'         => 'col-12',
             'productsCount'     => Product::overall(),
@@ -62,7 +66,9 @@ class IndexController extends Controller{
         return view('user',[
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'roots'             => Category::roots(),
             'body_css'          => 'user',
             'meta'              => [
@@ -75,8 +81,10 @@ class IndexController extends Controller{
         return view('users',[
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
-            'roots'             => Category::roots(),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'roots'             => Category::roots(),
+	    'footer_title'  	=> config('app.footer_title'),
             'body_css'          => 'users',
             'users'             => User::allActive(),
             'meta'              => [
@@ -89,7 +97,9 @@ class IndexController extends Controller{
         return view('categories',[
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'roots'             => Category::roots(),
             'body_css'          => 'categories',
             'meta'              => [
@@ -102,7 +112,9 @@ class IndexController extends Controller{
         return view('vendors',[
             'vendors'           => Vendor::allVendors(),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'roots'             => Category::roots(),
             'body_css'          => 'vendors',
             'meta'              => [
@@ -138,7 +150,9 @@ class IndexController extends Controller{
             'categories'    => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'parents'       => $category->parents(),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email'),
+	    'mail'          => config('app.email'),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title'),
             'roots'         => Category::roots(),
             'body_css'      => 'category',
             'meta'          => [
@@ -154,7 +168,9 @@ class IndexController extends Controller{
             'products'          => Product::allProducts(),
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'roots'             => Category::roots(),
             'body_css'          => 'shop',
             'meta'              => [
@@ -174,7 +190,9 @@ class IndexController extends Controller{
             'pgp'           => $user->user->pgp_key,
             'vendor'        => $user->user,
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email'),
+	    'mail'          => config('app.email'),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title'),
             'categories'    => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'roots'         => Category::roots(),
             'body_css'      => 'vendor',
@@ -205,7 +223,9 @@ class IndexController extends Controller{
             'vendor'        => $user->user,
             'feedback'      => $user->feedback()->orderByDesc('created_at')->paginate(20),
             'xmpp'          => config('app.xmpp'),
-            'mail'          => config('app.email'),
+	    'mail'          => config('app.email'),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title'),
             'categories'    => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'roots'         => Category::roots(),
             'body_css'      => 'feedback',
@@ -235,7 +255,9 @@ class IndexController extends Controller{
             'market_pgp_path'   => '/market.asc',
             'captcha'           => Captcha::build(),
             'xmpp'              => config('app.xmpp'),
-            'mail'              => config('app.email'),
+	    'mail'              => config('app.email'),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title'),
             'categories'        => Category::roots($this->ordering['by'],$this->ordering['dir']),
             'roots'             => Category::roots(),
             'body_css'          => 'contact',
@@ -270,7 +292,6 @@ class IndexController extends Controller{
     }
     
     public function postInfoMessage(){
-    
         return redirect()->back();
     }
 }

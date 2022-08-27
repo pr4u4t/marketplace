@@ -44,7 +44,9 @@ class VendorController extends Controller
             'vendor'        => auth()->user()->vendor,
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'roots'         => Category::roots(),
+	    'bm'	    => config('app.bm'),
+	    'footer_title'  => config('app.footer_title')
         ]);
     }
 
@@ -65,7 +67,9 @@ class VendorController extends Controller
             'basicProduct'  => session('product_adding'),
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'roots'         => Category::roots(),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title')
         ]);
     }
 
@@ -116,7 +120,9 @@ class VendorController extends Controller
             'basicProduct'      => null,
             'xmpp'              => config('app.xmpp'),
             'mail'              => config('app.email'),
-            'roots'             => Category::roots()
+	    'roots'             => Category::roots(),
+	    'bm'                => config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -195,7 +201,9 @@ class VendorController extends Controller
                 'productsShipping'  => session('product_shippings'),
                 'xmpp'              => config('app.xmpp'),
                 'mail'              => config('app.email'),
-                'roots'             => Category::roots()
+		'roots'             => Category::roots(),
+		'bm'                => config('app.bm'),
+		'footer_title'      => config('app.footer_title')
         ]);
     }
 
@@ -286,7 +294,9 @@ class VendorController extends Controller
             'digitalProduct'    => session('product_details') ?? new DigitalProduct(),
             'xmpp'              => config('app.xmpp'),
             'mail'              => config('app.email'),
-            'roots'             => Category::roots()
+	    'roots'             => Category::roots(),
+	    'bm'            	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -323,7 +333,9 @@ class VendorController extends Controller
             'productsImages'    => session('product_images'),
             'xmpp'              => config('app.xmpp'),
             'mail'              => config('app.email'),
-            'roots'             => Category::roots()
+	    'roots'             => Category::roots(),
+	    'bm'                => config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -484,10 +496,12 @@ class VendorController extends Controller
         $product = Product::findOrFail($id);
 
         return view('profile.product.confirmdelete', [
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -545,7 +559,9 @@ class VendorController extends Controller
 		    'basicProduct'  => $myProduct,
 		    'xmpp'          => config('app.xmpp'),
             	    'mail'          => config('app.email'),
-                    'roots'         => Category::roots()
+		    'roots'         => Category::roots(),
+		    'bm'            => config('app.bm'),
+		    'footer_title'  => config('app.footer_title')
                 ]),
             'offers' =>
                 view('profile.vendor.addoffers',[
@@ -553,7 +569,9 @@ class VendorController extends Controller
 		    'productsOffers'    => $myProduct->offers()->get(),
 		    'xmpp'              => config('app.xmpp'),
             	    'mail'              => config('app.email'),
-            	    'roots'             => Category::roots()
+		    'roots'             => Category::roots(),
+		    'bm'                => config('app.bm'),
+		    'footer_title'  	=> config('app.footer_title')
                 ]),
             'images' =>
                 view('profile.vendor.addimages',[
@@ -561,7 +579,9 @@ class VendorController extends Controller
 		    'productsImages'    => $myProduct->images()->get(),
 		    'xmpp'              => config('app.xmpp'),
             	    'mail'              => config('app.email'),
-            	    'roots'             => Category::roots()
+		    'roots'             => Category::roots(),
+		    'bm'                => config('app.bm'),
+		    'footer_title'  	=> config('app.footer_title')
                 ]),
             'delivery' =>
                 view('profile.vendor.adddelivery', [
@@ -571,7 +591,9 @@ class VendorController extends Controller
 		    'basicProduct'      => $myProduct,
 		    'xmpp'              => config('app.xmpp'),
             	    'mail'              => config('app.email'),
-            	    'roots'             => Category::roots()
+		    'roots'             => Category::roots(),
+		    'bm'                => config('app.bm'),
+		    'footer_title'  	=> config('app.footer_title')
                 ]),
             'digital' =>
                 view('profile.vendor.adddigital', [
@@ -579,7 +601,9 @@ class VendorController extends Controller
 		    'basicProduct'      => $myProduct,
 		    'xmpp'              => config('app.xmpp'),
             	    'mail'              => config('app.email'),
-            	    'roots'             => Category::roots()
+		    'roots'             => Category::roots(),
+		    'bm'                => config('app.bm'),
+		    'footer_title'  	=> config('app.footer_title')
                 ]),
         ];
 
@@ -602,11 +626,13 @@ class VendorController extends Controller
         auth() -> user() -> vendor -> sales() -> where('read', false) -> update(['read' => true]);
 
         return view('profile.vendor.sales', [
-            'sales'     => $sales,
-            'state'     => $state,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'sales'     	=> $sales,
+            'state'     	=> $state,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'     		=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -622,10 +648,11 @@ class VendorController extends Controller
             return abort(404);
 
         return view('profile.vendor.sale', [
-            'purchase'  => $sale,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'purchase'  	=> $sale,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -638,11 +665,13 @@ class VendorController extends Controller
     public function confirmSent(Purchase $sale)
     {
         return view('profile.purchases.confirmsent', [
-            'backRoute' => redirect()->back()->getTargetUrl(),
-            'sale'      => $sale,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'backRoute' 	=> redirect()->back()->getTargetUrl(),
+            'sale'      	=> $sale,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 

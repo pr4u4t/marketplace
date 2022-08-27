@@ -57,10 +57,12 @@ class ProductController extends Controller
 
 
         return view('product.index', [
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -72,10 +74,12 @@ class ProductController extends Controller
             abort(404);
 
         return view('product.rules', [
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -88,10 +92,12 @@ class ProductController extends Controller
         }
         
         return view('product.feedback', [
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -104,10 +110,12 @@ class ProductController extends Controller
         }
         
         return view('product.delivery', [
-            'product' => $product->product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product->product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -120,10 +128,12 @@ class ProductController extends Controller
         }
         
         return view('product.vendor', [
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product' 		=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -160,10 +170,12 @@ class ProductController extends Controller
 
     public function cloneProductShow(Product $product) {
         return view('profile.product.confirmclone')->with([
-            'product' => $product,
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'product'	 	=> $product,
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 

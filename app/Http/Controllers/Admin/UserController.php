@@ -29,15 +29,17 @@ class UserController extends Controller
     }
 
     public function users(DisplayUsersRequest $request) {
-        $this -> checkGate();
+        $this->checkGate();
 
         $request->persist();
         $users = $request->getUsers();
         return view('admin.users')->with([
-            'users'     => $users,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'users'     	=> $users,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 
@@ -53,13 +55,15 @@ class UserController extends Controller
     }
 
     public function userView(User $user = null){
-        $this -> checkGate();
+        $this->checkGate();
 
         return view('admin.user')->with([
-            'user'      => $user,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'user'      	=> $user,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 

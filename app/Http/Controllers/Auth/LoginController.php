@@ -22,10 +22,12 @@ class LoginController extends Controller {
      */
     public function showSignIn() {
         return (Auth::check()) ? redirect()->back() : view('auth.signin')->with([
-            'captcha' => Captcha::build(),
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'captcha' 		=> Captcha::build(),
+            'xmpp'    		=> config('app.xmpp'),
+	    'mail'    		=> config('app.email'),
+	    'bm'      		=> config('app.bm'),
+	    'roots'   		=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     
@@ -51,9 +53,11 @@ class LoginController extends Controller {
      */
     public function showVerify(){
         return view('auth.verify', [
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'xmpp'    		=> config('app.xmpp'),
+	    'mail'    		=> config('app.email'),
+	    'bm'      		=> config('app.bm'),
+	    'roots'   		=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
 

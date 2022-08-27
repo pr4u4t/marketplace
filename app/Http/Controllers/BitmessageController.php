@@ -48,12 +48,14 @@ class BitmessageController extends Controller
     public function show() {
 
         return view('profile.bitmessage')->with([
-            'enabled'   => $this->enabled,
-            'address'   => $this->address,
-            'user'      => auth()->user(),
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'enabled'   	=> $this->enabled,
+            'address'   	=> $this->address,
+            'user'      	=> auth()->user(),
+            'xmpp'      	=> config('app.xmpp'),
+	    'mail'      	=> config('app.email'),
+	    'bm'        	=> config('app.bm'),
+	    'roots'     	=> Category::roots(),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     public function sendConfirmation(SendConfirmationRequest $request){

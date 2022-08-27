@@ -11,7 +11,7 @@
                     <!-- Content -->
                     <h6 class="text-uppercase fw-bold mb-4">
                     <img loading="lazy" style="width:4em;" src="{{ config('app.logo') }}">
-                    No Surrender Market
+		    {{ $footer_title }}
                     </h6>
                     <p>
                     Aiming to be the biggest and trusted market on the darknet.
@@ -59,7 +59,7 @@
                     <!--<p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p> -->
                     <p>
                         <i class="fas fa-comment-alt me-3"></i>
-                        <a href="bm:BM-2cWiAh982goxJoyf16cix5hE6GDUWgpxqG">BM-2cWiAh982goxJoyf16cix5hE6GDUWgpxqG</a>
+                        <a href="bm:{{ $bm }}">{{ $bm }}</a>
                     </p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>

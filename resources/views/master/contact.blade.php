@@ -24,7 +24,7 @@
     
     <p>
         <i class="fas fa-comment-alt me-3 fa-2x" style="vertical-align:middle"></i>
-        <a href="bm:BM-2cWiAh982goxJoyf16cix5hE6GDUWgpxqG">BM-2cWiAh982goxJoyf16cix5hE6GDUWgpxqG</a>
+        <a href="bm:{{ $bm }}">{{ $bm }}</a>
     </p>
     
     <h3 class="h3-responsive font-weight-bold mt-2"> or this contact form:</h3>

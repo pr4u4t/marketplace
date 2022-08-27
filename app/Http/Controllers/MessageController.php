@@ -58,7 +58,9 @@ class MessageController extends ProfileController
             'conversationMessages'          => $conversation != null ? $conversation->messages()->orderByDesc('created_at')->paginate(config('marketplace.products_per_page')) : null, // messages of the conversation
             'xmpp'                          => config('app.xmpp'),
             'mail'                          => config('app.email'),
-            'roots'                         => Category::roots()
+	    'roots'                         => Category::roots(),
+	    'bm'            		    => config('app.bm'),
+	    'footer_title'  		    => config('app.footer_title')
         ]);
 
     }
@@ -74,7 +76,9 @@ class MessageController extends ProfileController
             'usersConversations'    => auth()->user()->conversations()->orderByDesc('updated_at')->paginate(config('marketplace.products_per_page')),
             'xmpp'                  => config('app.xmpp'),
             'mail'                  => config('app.email'),
-            'roots'                 => Category::roots()
+	    'roots'                 => Category::roots(),
+	    'bm'            	    => config('app.bm'),
+	    'footer_title'  	    => config('app.footer_title')
         ]);
     }
 
@@ -123,9 +127,11 @@ class MessageController extends ProfileController
      */
     public function decryptKeyShow(Request $request) {
         return view('profile.messagekey',[
-            'xmpp'    => config('app.xmpp'),
-            'mail'    => config('app.email'),
-            'roots'   => Category::roots()
+            'xmpp'    		=> config('app.xmpp'),
+            'mail'    		=> config('app.email'),
+	    'roots'   		=> Category::roots(),
+	    'bm'      		=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
     /**

@@ -105,7 +105,9 @@ class SearchController extends Controller
             'results_count' => $results->count(),
             'xmpp'          => config('app.xmpp'),
             'mail'          => config('app.email'),
-            'roots'         => Category::roots()
+	    'roots'         => Category::roots(),
+	    'bm'            => config('app.bm'),
+	    'footer_title'  => config('app.footer_title')
         ]);
     }
 

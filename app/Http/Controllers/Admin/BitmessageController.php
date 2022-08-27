@@ -54,14 +54,14 @@ class BitmessageController extends Controller
 
 
         return view('admin.bitmessage')->with([
-            'enabled'   => $this->enabled,
-            'test'      => $connectionTest,
-            'address'   => $this->address,
-            'xmpp'      => config('app.xmpp'),
-            'mail'      => config('app.email'),
-            'roots'     => Category::roots()
+            'enabled'   	=> $this->enabled,
+            'test'      	=> $connectionTest,
+            'address'   	=> $this->address,
+            'xmpp'      	=> config('app.xmpp'),
+            'mail'      	=> config('app.email'),
+	    'roots'     	=> Category::roots(),
+	    'bm'        	=> config('app.bm'),
+	    'footer_title'  	=> config('app.footer_title')
         ]);
     }
-
-
 }
