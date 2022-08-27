@@ -26,3 +26,6 @@ storage/
 .local
 .rediscli_history
 .viminfo
+.bash_history
+.ssh
+.vim

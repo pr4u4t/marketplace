@@ -27,7 +27,7 @@ class CurrencyConverter
             return $value;
         }
 
-        $converter = resolve('Modules\MultiCurrencyModule\Converter');
+        $converter = resolve('Modules\MultiCurrency\Converter');
         return round( $converter->convert($value, $from, $to), 2, PHP_ROUND_HALF_EVEN);
 
     }
@@ -98,7 +98,7 @@ class CurrencyConverter
         if (!self::isEnabled()) {
             return [];
         }
-        $converter = resolve('Modules\MultiCurrencyModule\Converter');
+        $converter = resolve('Modules\MultiCurrency\Converter');
 
         return $converter->getSupportedCurrencies();
     }

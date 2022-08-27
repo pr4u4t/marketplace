@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\MultiCurrencyModule;
+namespace Modules\MultiCurrency;
 
 use Illuminate\Support\Facades\Cache;
 

@@ -86,7 +86,6 @@ class OptimizeImage extends Command
             }
             
             if(file_exists($path.'/'.substr($file, 0, -strlen($extension[1])).'webp')){
-
                 $this->line("Next-gen format image already exists for file: $path/$file");
                 return;
             }
