@@ -17,5 +17,7 @@ Everything required for Marketplace to run normally
 
 ## Donations
 BTC: 3MWctnaTBC8emKs2FJpDaj7ZuyW1QHGgAv
+
 PayPal: pawel.ciejka@gmail.com
+
 Skrill: pawel.ciejka@gmail.com
